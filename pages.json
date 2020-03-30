@@ -1,0 +1,68 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	
+	    {
+            "path" : "pages/home/index",
+            "style" : {
+				"navigationBarTitleText": "首页"
+			}
+        }
+        ,{
+            "path" : "pages/product/productDetail",
+            "style" : {
+				"navigationBarTitleText": "商品详情"
+			}
+        }
+        ,{
+            "path" : "pages/product/productList",
+            "style" : {
+				"navigationBarTitleText": "商品列表"
+			}
+        }
+        ,{
+            "path" : "pages/user/index",
+            "style" : {
+				"navigationBarTitleText": "我的"
+			}
+        }
+        ,{
+            "path" : "pages/user/team",
+            "style" : {
+				"navigationBarTitleText": "我的团队"
+			}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#C0C4CC",
+		"selectedColor": "#fa436a",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/home/index",
+				"iconPath": "/static/public/tab_icon_home@2x.png",
+				"selectedIconPath": "/static/public/tab_icon_home_hover@2x.png",
+				"text": "首页" // tab title
+			},{
+				"pagePath": "pages/product/productDetail",
+				"iconPath": "/static/public/tab_icon_my@2x.png",
+				"selectedIconPath": "/static/public/tab_icon_my_hover@2x.png",
+				"text": "我的"
+			}
+		]
+	},
+	"condition": { //模式配置，仅开发期间生效
+	    "current": 0, //当前激活的模式（list 的索引项）
+	    "list": [
+			{
+			    "name": "home",
+			    "path": "pages/home/index"
+			}
+	    ]
+	}
+}
