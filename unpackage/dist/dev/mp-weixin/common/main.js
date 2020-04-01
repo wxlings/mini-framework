@@ -11,8 +11,7 @@
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));
 var _index = _interopRequireDefault(__webpack_require__(/*! ./store/index.js */ 16));
-var _uniRequest = _interopRequireDefault(__webpack_require__(/*! ./common/uniRequest.js */ 18));
-var _wxRequest = _interopRequireDefault(__webpack_require__(/*! ./common/wxRequest.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ./common/request.js */ 18));
 var _const = _interopRequireDefault(__webpack_require__(/*! ./common/const.js */ 17));
 var _config = _interopRequireDefault(__webpack_require__(/*! ./common/config.js */ 19));
 var _api = _interopRequireDefault(__webpack_require__(/*! ./common/api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
@@ -63,8 +62,7 @@ _vue.default.prototype.$const = _const.default; // 全局常量池 : this.$const
 _vue.default.prototype.$log = log; // 全局log : this.$log(tag,msg)
 _vue.default.prototype.$showToast = showToast; // 全局toast : this.$showToast("hello")
 _vue.default.prototype.$showLoading = showLoading; // 全局toast : this.$showToast("hello")
-_vue.default.prototype.$fetch = _uniRequest.default;
-// Vue.prototype.$fetch = wxHttpRequest
+_vue.default.prototype.$fetch = _request.default;
 
 _App.default.mpType = 'app';
 

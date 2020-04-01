@@ -170,7 +170,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _objectSpread(target) {
 
   },
   methods: {
-    loadData: function loadData() {
+    loadData: function loadData() {var _this = this;
       var url = this.$api.home;
       var params = {
         page: 1,
@@ -179,16 +179,15 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _objectSpread(target) {
       var options = {
         header: {
           sn: 'aslkdfj',
-          Authorization: 'Bear 123456789...' } };
+          Authorization: 'Bear 123456789' },
 
+        requestId: 'home-fetch' };
 
 
       this.$fetch.get(url, params, options).then(function (res) {
-        console.log('Home load data:', res);
+        _this.$log('HOME LOAD', res.data);
       }, function (err) {
-        console.log('Home error:', err);
-      }, function (compele) {
-        console.log('Home compele:', compele);
+        _this.$log('HOME LOAD FAIL', res.data);
       });
     },
 
@@ -201,7 +200,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _objectSpread(target) {
         header: {
           sn: 'aslkdfj' },
 
-        Authorization: 'Bear 123456789...',
+        Authorization: 'Bearer 123456789',
         success: function success(res) {
           console.log("success:", res);
         },

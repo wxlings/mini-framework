@@ -754,7 +754,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7082,7 +7082,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7103,14 +7103,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7186,7 +7186,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8525,7 +8525,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/index": { "navigationBarTitleText": "首页" }, "pages/product/productDetail": { "navigationBarTitleText": "商品详情" }, "pages/product/productList": { "navigationBarTitleText": "商品列表" }, "pages/user/index": { "navigationBarTitleText": "我的" }, "pages/user/team": { "navigationBarTitleText": "我的团队" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/index": { "navigationBarTitleText": "首页", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/product/productDetail": { "navigationBarTitleText": "商品详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/product/productList": { "navigationBarTitleText": "商品列表", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/index": { "navigationBarTitleText": "我的", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/team": { "navigationBarTitleText": "我的团队", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -9766,92 +9766,92 @@ var Env = {
 
 /***/ }),
 /* 18 */
-/*!*************************************************!*\
-  !*** E:/project/mini-mall/common/uniRequest.js ***!
-  \*************************************************/
+/*!**********************************************!*\
+  !*** E:/project/mini-mall/common/request.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var _index = _interopRequireDefault(__webpack_require__(/*! ../store/index.js */ 16));
 var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));
-var _config2 = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
-var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
+var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var config = {
-  url: _config2.default.host,
+  url: _config.default.host,
   header: {
     // 'Content-Type': 'application/json'
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'token': _index.default.state.token },
-
-  method: 'POST',
-  success: function success() {},
-  fail: function fail() {},
-  complete: function complete() {} };
+    'Content-Type': 'application/x-www-form-urlencoded' }
 
 
+
+  /**
+                                                           * 拦截器
+                                                           */ };
 var interceptor = {
-  request: null,
-  response: null };
-
-
-function request(options) {
-  var url = options.url || '';
-  if (url.indexOf('http://') !== 0 || url.indexOf('https://') !== 0) {
-    options.url = _config2.default.host + url;
-  }
-  var header = _objectSpread({}, config.header);
-  // try {
-  // 	let token = wx.getStorageSync(constant.Storage.TOKEN)
-  // 	if (token) {
-  // 		options.token = token
-  // 	}
-  // } catch (e) {
-  // 	console.log('Get Storage->token fail:',e)
-  // }
-
-  Object.assign(header, options.header);
-  options.header = header;
-  return new Promise(function (resolve, reject) {
-    var _config = {};
-    Object.assign(_config, config, options);
-    _config.requestId = new Date().getTime();
-    if (interceptor.request) {// 如果有设置请求拦截器,先进行请求拦截
-      _config = interceptor.request(_config);
+  request: function request(req) {
+    _reqlog(req);
+    return req;
+  },
+  response: function response(res) {
+    if (res.statusCode === 500) {
+      _reslog(res);
     }
-    _config.complete = function (res) {
-      res.config = _config;
-      if (interceptor.response) {// 如果有设置响应拦截器,先进行响应拦截
-        res = interceptor.response(res);
-      }
-      // _reslog(res) 			// 内容过多,请自行控制是否打开日志
-      var statusCode = res.statusCode;
-      if (statusCode === 200) {
-        if (res.data.err_code === 4000) {// 如果有强制登录业务
-          wx.navigateTo('/pages/login/index');
-          return;
+    // _reslog(res) 	//内容过多,请自行控制是否打开日志
+    return res;
+  } };
+
+
+function request(url, options) {
+  var tempUrl = url || options.url || '';
+  if (tempUrl.indexOf('http://') !== 0 || tempUrl.indexOf('https://') !== 0) {
+    options.url = _config.default.host + tempUrl;
+  }
+  options.header = Object.assign({}, config.header, options.header);
+  options.requestId = options.requestId || new Date().getTime();
+  return new Promise(function (resolve, reject) {
+    wx.getStorage({
+      key: _const.default.Storage.TOKEN,
+      success: function success(res) {
+        options.header.token = res.data;
+      },
+      fail: function fail(e) {
+        // todo 可以在这里跳转到登录
+      },
+      complete: function complete(res) {
+        options.complete = function (res) {
+          res.requestId = options.requestId;
+          if (interceptor.response) {// 如果有设置响应拦截器,先进行响应拦截
+            res = interceptor.response(res);
+          }
+          var statusCode = res.statusCode;
+          if (statusCode === 200) {
+            if (res.data.err_code === 4000) {// 如果有强制登录业务
+              wx.navigateTo('/pages/login/index');
+              return;
+            }
+            resolve(res.data);
+          } else if (statusCode === 500) {
+            wx.showToast({
+              title: '服务器繁忙,请稍再试...',
+              icon: 'none' });
+
+            var temp = {
+              err_code: statusCode, // 这里强烈建议符合服务器返回数据格式的字段
+              err_msg: 'server error!' };
+
+            reject(temp);
+          } else if (statusCode === 'some-code') {
+            // todo 其他http 状态自行处理
+          }
+        };
+        if (interceptor.request) {// 如果有设置请求拦截器,先进行请求拦截
+          options = interceptor.request(options);
         }
-        resolve(res.data);
-      } else if (statusCode === 500) {
-        wx.showToast({
-          title: '服务器繁忙,请稍再试...',
-          icon: 'none' });
+        wx.request(options);
+      } });
 
-        var temp = {
-          err_code: statusCode, // 这里强烈建议符合服务器返回数据格式的字段
-          err_msg: 'server error!' };
-
-        reject(temp);
-        _reslog(res);
-      } else if (statusCode === 0) {
-        // todo 其他http 状态自行处理
-      }
-    };
-    _reqlog(_config);
-    wx.request(_config);
   });
-
 }
 
 /**
@@ -9859,7 +9859,7 @@ function request(options) {
    */
 function _reqlog(req) {
   if (true) {
-    console.log('【' + req.requestId + '】 url：' + req.url);
+    console.log('【' + req.requestId + '】 url：' + req.url, ' token:', req.header.token);
     if (req.data) {
       console.log('【' + req.requestId + '】 params：' + JSON.stringify(req.data));
     }
@@ -9871,49 +9871,46 @@ function _reqlog(req) {
    */
 function _reslog(res) {
   if (true) {
-    console.log("【" + res.config.requestId + "】 地址：" + res.config.url);
+    console.log("【" + res.requestId + "】 地址：" + res.config.url);
     if (res.config.data) {
-      console.log("【" + res.config.requestId + "】 请求参数：" + JSON.stringify(res.config.data));
+      console.log("【" + res.requestId + "】 请求参数：" + JSON.stringify(res.config.data));
     }
-    console.log("【" + res.config.requestId + "】 响应结果：" + JSON.stringify(res));
+    console.log("【" + res.requestId + "】 响应结果：" + JSON.stringify(res));
   }
 }
 /**
    * get request
    */
 function get(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  options.url = url;
   options.method = 'GET';
   options.data = data;
-  return request(options);
+  return request(url, options);
 }
 /**
    * post request
    */
 function post(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  options.url = url;
   options.method = 'POST';
   options.data = data;
-  return request(options);
+  return request(url, options);
 }
 /**
    * put request
    */
 function put(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  options.url = url;
   options.method = 'PUT';
   options.data = data;
-  return request(options);
+  return request(url, options);
 }
 /**
    * delete request
    */
 function del(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  options.url = url;
   options.method = 'DELETE';
   options.data = data;
-  return request(options);
+  return request(url, options);
 }
+
 
 module.exports.get = get;
 module.exports.post = post;
@@ -9989,112 +9986,6 @@ module.exports = {
   product_list: '', // 商品列表api
   category: '' // 分类api
 };
-
-/***/ }),
-/* 21 */
-/*!************************************************!*\
-  !*** E:/project/mini-mall/common/wxRequest.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
-var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));
-var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
-
-/**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   * 基础数据
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   */
-var config = {
-  host: _config.default.host,
-  header: {
-    // 'Content-Type': 'application/json'
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'token': '' },
-
-  data: {},
-  method: 'POST',
-  dataType: 'json',
-  responseType: 'text',
-  success: function success() {},
-  fail: function fail() {},
-  complete: function complete() {} };
-
-
-function wxRequest(params) {
-  var url = params.url || '';
-  if (url.indexOf('http://') !== 0 || url.indexOf('https://') !== 0) {
-    params.url = config.host + url;
-  }
-  var header = _objectSpread({}, config.header);
-  wx.getStorage({
-    key: _const.default.Storage.TOKEN,
-    success: function success(res) {
-      header.token = res.data;
-    },
-    complete: function complete() {
-      Object.assign(header, params.header);
-      params.header = header;
-      console.log("Get params:", params);
-      wx.request(params);
-    } });
-
-}
-
-function wxGet(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  params.url = url;
-  params.data = data;
-  params.method = 'GET';
-  request(params);
-}
-
-function wxPost(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  params.url = url;
-  params.data = data;
-  params.method = 'POST';
-  this.request(params);
-}
-
-function wxPut(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  params.url = url;
-  params.data = data;
-  params.method = 'PUT';
-  this.request(params);
-}
-
-function wxDelete(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  params.url = url;
-  params.data = data;
-  params.method = 'DELETE';
-  this.request(params);
-}
-
-module.exports.wxGet = wxGet;
-module.exports.wxPost = wxPost;
-module.exports.wxPut = wxPut;
-module.exports.wxDelete = wxDelete;
 
 /***/ })
 ]]);

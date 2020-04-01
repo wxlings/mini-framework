@@ -46,16 +46,15 @@
 				let options = {
 					header:{
 						sn:'aslkdfj',
-						Authorization:'Bear 123456789...'
-					}
+						Authorization:'Bear 123456789'
+					},
+					requestId:'home-fetch',
 				}
 				
 				this.$fetch.get(url,params,options).then(res=>{
-					console.log('Home load data:',res)
+					this.$log('HOME LOAD',res.data)
 				},err=>{
-					console.log('Home error:',err)
-				},compele=>{
-					console.log('Home compele:',compele)
+					this.$log('HOME LOAD FAIL',res.data)
 				})
 			},
 			
@@ -68,7 +67,7 @@
 					header:{
 						sn:'aslkdfj'
 					},
-					Authorization:'Bear 123456789...',
+					Authorization:'Bearer 123456789',
 					success(res){
 						console.log("success:",res)
 					},
