@@ -10,10 +10,7 @@ let config = {
 		'Content-Type': 'application/x-www-form-urlencoded',
 		'token':store.state.token
 	},
-	data:{},
 	method:'POST',
-	dataType:'json',
-	responseType: 'text',
 	success(){},
 	fail(){},
 	complete(){}

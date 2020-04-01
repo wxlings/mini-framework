@@ -152,9 +152,9 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
   onLaunch: function onLaunch(e) {
     this.save(e.query.sn);
     try {
-      var user = wx.getStorageInfoSync(this.$const.Storage.USER);
-      if (user) {
-        this.login(user);
+      var user_info = wx.getStorageInfoSync(this.$const.Storage.USER);
+      if (user_info && user_info.sn) {
+        this.login(user_info);
         //this.check()
       }
     } catch (e) {

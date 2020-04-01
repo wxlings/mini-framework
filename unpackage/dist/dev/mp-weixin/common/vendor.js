@@ -9757,10 +9757,7 @@ var config = {
     'Content-Type': 'application/x-www-form-urlencoded',
     'token': _index.default.state.token },
 
-  data: {},
   method: 'POST',
-  dataType: 'json',
-  responseType: 'text',
   success: function success() {},
   fail: function fail() {},
   complete: function complete() {} };
