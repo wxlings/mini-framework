@@ -41,7 +41,7 @@ function request(options){
 	
 	Object.assign(header,options.header)
 	options.header = header
-	return new Promise((resolve,reject,complete)=>{
+	return new Promise((resolve,reject)=>{
 		let _config = {}
 		Object.assign(_config, config, options);
 		_config.requestId = new Date().getTime();
@@ -53,7 +53,7 @@ function request(options){
 			if(interceptor.response){ // 如果有设置响应拦截器,先进行响应拦截
 				res = interceptor.response(res)
 			}
-			// _reslog(res) // 内容过多,请自行控制是否打开日志
+			// _reslog(res) 			// 内容过多,请自行控制是否打开日志
 			let statusCode = res.statusCode
 			if(statusCode === 200){
 				if(res.data.err_code === 4000){ // 如果有强制登录业务
@@ -74,9 +74,6 @@ function request(options){
 				_reslog(res)
 			}else if(statusCode === 0){
 				// todo 其他http 状态自行处理
-			}
-			if(complete){
-				complete(res)
 			}
 		}
 		_reqlog(_config)
