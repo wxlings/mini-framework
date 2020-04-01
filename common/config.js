@@ -10,6 +10,8 @@ const PRO = constant.Env.PRO
 const ENV = DEV 
 
 // 域名设置
+const versions = ['v1','v2','v3'] // 当前小程序版本
+
 const HOST_DEV = "https://jdtest.renrenyoupin.com" //开发模式
 const HOST_PRE = "https://jdtest.renrenyoupin.com" // 体验模式
 const HOST_PRO = "https://jd.renrenyoupin.com" // 正式环境
@@ -18,14 +20,17 @@ const HOST = {
 	develop:{
 		host:HOST_DEV,
 		env:ENV,
+		version:versions[0]
 	},
 	preview:{
 		host:HOST_PRE,
-		env:ENV
+		env:ENV,
+		version:versions[1]
 	},
 	production:{
 		host:HOST_PRO,
-		env:ENV
+		env:ENV,
+		version:versions[2]
 	}
 }
 

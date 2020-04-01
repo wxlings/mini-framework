@@ -1,5 +1,9 @@
 > js 语法
 ```js
+
+	js 空格:&nbsp >:&gt;
+	
+
 	数组操作： let first = ['a','b','c','d'] let second = ['e','f','g']
 	数组合并： concat
 	let new = first.concat(second) //合并到 ['a','b','c','d','e','f','g'] 

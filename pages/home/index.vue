@@ -17,7 +17,7 @@
 			...mapState(['logined','user']) // 应用内数据状态共享
 		},
 		onLoad(options) {
-			this.$log("HOME ONLOAD",options)
+			// this.$log("HOME ONLOAD",options)
 			this.loadData()
 			// this.loadData_v2()
 		},
@@ -45,13 +45,10 @@
 				}
 				let options = {
 					header:{
-						sn:'aslkdfj'
-					},
-					Authorization:'Bear 123456789...',
+						sn:'aslkdfj',
+						Authorization:'Bear 123456789...'
+					}
 				}
-				
-				this.$fetch.get(url,params,options)
-				return
 				
 				this.$fetch.get(url,params,options).then(res=>{
 					console.log('Home load data:',res)

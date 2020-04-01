@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import constant from '../common/const.js'
 
 Vue.use(Vuex);
 
@@ -25,62 +26,73 @@ const store = new Vuex.Store({
 		login(state,data){
 			state.logined = true;
 			state.user = data;
-			try {
-			  wx.setStorageSync(this.$const.USER, data);
-			} catch (e) {
-				console.error("Vuex -> login() -> setStorage() excetion:",e);
-			}
+			wx.setStorage({
+				key:constant.Storage.USER,
+				data:data,
+				success(e){},
+				fail(e){
+					console.error("Vuex -> login() -> setStorage() excetion:",e);
+				}
+			})
 		},
 		
 		/**
 		 * @param {Object} data logout 
 		 */
-		logout(state,data){
+		logout(state,data={}){
 			state.logined = false;
-			state.user = {};
-			try {
-			  wx.removeStorageSync()
-			} catch (e) {
-				console.error("Vuex -> logout() -> setStorage() excetion:",e)
-			}
+			state.user = data;
+			wx.clearStorage()
 		},
-		// 插入一条产品信息，临时媒介
+		
+		/**
+		 * @param {Object} data 插入一条产品信息，临时媒介
+		 */
 		produc(state,data){
 			state.product = data
 		},
-		// 浏览历史加入本地存储
+		/**
+		 * @param {Object} data 浏览历史加入本地存储
+		 */ 
 		addHistory(state,data){
-			let key = this.$const.Storage.HISTORY
+			let key = constant.Storage.HISTORY
+			let temp = []
 			wx.getStorage({
 				key:key,
 				success(res){
 					if(res.data){
-						if(res.data.length > 20){ // 保留最新的20条数据
+						if(res.data.length >= 18){ // 保留最新的20条数据
 							res.data.pop()
 						}
 						res.data.shift(data)
-						wx.setStorage({
-							key:this.$const.Storage.HISTORY,
-							data:data,
-							success(){
-								
-							},
-							fail(){
-								
-							}
-						})
+						temp = res.data
+					}else{
+						temp.push(data)
 					}
 				},
 				fail(){
-					
+					temp.push(data)
+				},
+				complete(){
+					wx.setStorage({
+						key:key,
+						data:data,
+						success(res){
+							console.log("Add history:",res)
+						},
+						fail(e){
+							console.error("Add history:",e)
+						}
+					})
 				}
 			})
-			
 		},
-		// remove history
+		/**
+		 * remove history
+		 */ 
 		clearHistory(){
 			wx.removeStorage({
-				key:this.$const.Storage.HISTORY
+				key:constant.Storage.HISTORY
 			})
 		}
 	},

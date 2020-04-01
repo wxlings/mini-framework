@@ -41,21 +41,20 @@ function request(options){
 	
 	Object.assign(header,options.header)
 	options.header = header
-	return new Promise((resolve,reject)=>{
+	return new Promise((resolve,reject,complete)=>{
 		let _config = {}
 		Object.assign(_config, config, options);
 		_config.requestId = new Date().getTime();
-		console.log("*******************",_config)
-		_reqlog(_config)
-		options.complete = (res) =>{
-			console.log("-------------",res)
-			let statusCode = res.statusCode
+		if(interceptor.request){ // 如果有设置请求拦截器,先进行请求拦截
+			_config = interceptor.request(_config)
+		}
+		_config.complete = (res) =>{
 			res.config = _config
-			if(interceptor.response){ // 使用拦截器修改网络拦截数据
+			if(interceptor.response){ // 如果有设置响应拦截器,先进行响应拦截
 				res = interceptor.response(res)
 			}
-			resolve(res.data)
-			return
+			// _reslog(res) // 内容过多,请自行控制是否打开日志
+			let statusCode = res.statusCode
 			if(statusCode === 200){
 				if(res.data.err_code === 4000){ // 如果有强制登录业务
 					wx.navigateTo('/pages/login/index')
@@ -72,16 +71,23 @@ function request(options){
 					err_msg:'server error!',
 				}
 				reject(temp)
-			}else if(statusCode === 302){
-				// todo
+				_reslog(res)
+			}else if(statusCode === 0){
+				// todo 其他http 状态自行处理
+			}
+			if(complete){
+				complete(res)
 			}
 		}
-		
-		uni.request(_config)
+		_reqlog(_config)
+		wx.request(_config)
 	})
 
 }
 
+/**
+ * @param {Object} req 打印请求日志
+ */
 function _reqlog(req) {
 	if(process.env.NODE_ENV === 'development') {
 		console.log('【' + req.requestId + '】 url：' + req.url);
@@ -91,56 +97,53 @@ function _reqlog(req) {
 	}
 }
 
+/**
+ * @param {Object} req 打印响应日志
+ */
 function _reslog(res) {
-  let _statusCode = res.data.err_code;
-  // if (process.env.NODE_ENV === 'development') {
-  // 	console.log("【" + res.config.requestId + "】 地址：" + res.config.url)
-  // 	if (res.config.data) {
-  // 		console.log("【" + res.config.requestId + "】 请求参数：" + JSON.stringify(res.config.data))
-  // 	}
-  // 	console.log("【" + res.config.requestId + "】 响应结果：" + JSON.stringify(res))
-  // }
-  //TODO 除了接口服务错误外，其他日志调接口异步写入日志数据库
-  switch (_statusCode) {
-    case 200:
-      break;
-    case 401:
-      // token为空
-      console.log('reponse-401');
-      break;
-    case 404:
-      break;
-    default:
-      break;
+  if (process.env.NODE_ENV === 'development') {
+  	console.log("【" + res.config.requestId + "】 地址：" + res.config.url)
+  	if (res.config.data) {
+  		console.log("【" + res.config.requestId + "】 请求参数：" + JSON.stringify(res.config.data))
+  	}
+  	console.log("【" + res.config.requestId + "】 响应结果：" + JSON.stringify(res))
   }
 }
-
+/**
+ * get request
+ */
 function get(url,data={},options={}){
 	options.url = url;
 	options.method = 'GET';
 	options.data = data;
-	request(options)
+	return request(options)
 }
-
+/**
+ * post request
+ */
 function post(url,data={},options={}){
 	options.url = url;
 	options.method = 'POST';
 	options.data = data;
-	request(options)
+	return request(options)
 }
-
+/**
+ * put request
+ */
 function put(url,data={},options={}){
 	options.url = url;
 	options.method = 'PUT';
 	options.data = data;
-	request(options)
+	return request(options)
 }
-
+/**
+ * delete request
+ */
 function del(url,data={},options={}){
 	options.url = url;
 	options.method = 'DELETE';
 	options.data = data;
-	request(options)
+	return request(options)
 }
 
 module.exports.get = get

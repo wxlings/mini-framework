@@ -8,7 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance");}function _iterableToArrayLimit(arr, i) {var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}
+Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance");}function _iterableToArrayLimit(arr, i) {if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {return;}var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}
 
 var _toString = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -241,9 +241,11 @@ var promiseInterceptor = {
 
 
 var SYNC_API_RE =
-/^\$|restoreGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
+/^\$|sendNativeEvent|restoreGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
 
 var CONTEXT_API_RE = /^create|Manager$/;
+
+var ASYNC_API = ['createBLEConnection'];
 
 var CALLBACK_API_RE = /^on/;
 
@@ -251,7 +253,7 @@ function isContextApi(name) {
   return CONTEXT_API_RE.test(name);
 }
 function isSyncApi(name) {
-  return SYNC_API_RE.test(name);
+  return SYNC_API_RE.test(name) && ASYNC_API.indexOf(name) === -1;
 }
 
 function isCallbackApi(name) {
@@ -276,6 +278,19 @@ function shouldPromise(name) {
   return true;
 }
 
+/* eslint-disable no-extend-native */
+if (!Promise.prototype.finally) {
+  Promise.prototype.finally = function (callback) {
+    var promise = this.constructor;
+    return this.then(
+    function (value) {return promise.resolve(callback()).then(function () {return value;});},
+    function (reason) {return promise.resolve(callback()).then(function () {
+        throw reason;
+      });});
+
+  };
+}
+
 function promisify(name, api) {
   if (!shouldPromise(name)) {
     return api;
@@ -289,18 +304,6 @@ function promisify(name, api) {
         success: resolve,
         fail: reject })].concat(
       params));
-      /* eslint-disable no-extend-native */
-      if (!Promise.prototype.finally) {
-        Promise.prototype.finally = function (callback) {
-          var promise = this.constructor;
-          return this.then(
-          function (value) {return promise.resolve(callback()).then(function () {return value;});},
-          function (reason) {return promise.resolve(callback()).then(function () {
-              throw reason;
-            });});
-
-        };
-      }
     })));
   };
 }
@@ -8514,7 +8517,7 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26420200313001","_inBundle":false,"_integrity":"sha512-7dPuazTiDmUyRcw+WW+UlWGKH0eeCUB+p0P4pJVKEHjpdXnXgvDQCSdJk764NH99TfsUycnuxecP5oHckVa88g==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26420200313001.tgz","_shasum":"a006e329e033cd412accfa635f8933dbb822a9c3","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"b1fdbafab5dd4673cff64188a5203d0c947e4f50","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26420200313001"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26820200330001","_inBundle":false,"_integrity":"sha512-Qzo5LcBl+abS7DvpyTXBYW2VVYHVcHBewduQecjn/gbzAn9e90aOVn02/2VZ82wV6TBiDXbGyloXojOY3InzWA==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26820200330001.tgz","_shasum":"880c5c5a4920bb35e9cf691eeb7427a7bf67ffd7","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"57ef7f7b5b6164a74ec425ff12f9fe0a1147841a","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26820200330001"};
 
 /***/ }),
 /* 7 */
@@ -8542,229 +8545,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 9 */,
 /* 10 */,
 /* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    options.components = Object.assign(components, options.components || {})
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 15 */
-/*!**************************************************************************!*\
-  !*** C:/Users/admin/Documents/HBuilderProjects/mini-mall/store/index.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-_vue.default.use(_vuex.default);
-
-var store = new _vuex.default.Store({
-  state: {
-    logined: false, // 登录状态
-    token: '',
-    user: {}, // user信息
-    product: {} // produc:同一时间仅保存一个商品信息
-  },
-  mutations: {
-
-    /**
-                * @param {Object} data token value
-                */
-    setToken: function setToken(state, data) {
-      state.token = data;
-    },
-
-    /**
-        * @param {Object} data user info
-        */
-    login: function login(state, data) {
-      state.logined = true;
-      state.user = data;
-      try {
-        wx.setStorageSync(this.$const.USER, data);
-      } catch (e) {
-        console.error("Vuex -> login() -> setStorage() excetion:", e);
-      }
-    },
-
-    /**
-        * @param {Object} data logout 
-        */
-    logout: function logout(state, data) {
-      state.logined = false;
-      state.user = {};
-      try {
-        wx.removeStorageSync();
-      } catch (e) {
-        console.error("Vuex -> logout() -> setStorage() excetion:", e);
-      }
-    },
-    // 插入一条产品信息，临时媒介
-    produc: function produc(state, data) {
-      state.product = data;
-    },
-    // 浏览历史加入本地存储
-    addHistory: function addHistory(state, data) {
-      var key = this.$const.Storage.HISTORY;
-      wx.getStorage({
-        key: key,
-        success: function success(res) {
-          if (res.data) {
-            if (res.data.length > 20) {// 保留最新的20条数据
-              res.data.pop();
-            }
-            res.data.shift(data);
-            wx.setStorage({
-              key: this.$const.Storage.HISTORY,
-              data: data,
-              success: function success() {
-
-              },
-              fail: function fail() {
-
-              } });
-
-          }
-        },
-        fail: function fail() {
-
-        } });
-
-
-    },
-    // remove history
-    clearHistory: function clearHistory() {
-      wx.removeStorage({
-        key: this.$const.Storage.HISTORY });
-
-    } },
-
-  actions: {} });var _default =
-
-
-store;exports.default = _default;
-
-/***/ }),
-/* 16 */
+/* 12 */
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
   \********************************************/
@@ -9714,6 +9495,248 @@ var index_esm = {
 
 
 /***/ }),
+/* 13 */,
+/* 14 */,
+/* 15 */
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 16 */
+/*!**************************************************************************!*\
+  !*** C:/Users/admin/Documents/HBuilderProjects/mini-mall/store/index.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 12));
+var _const = _interopRequireDefault(__webpack_require__(/*! ../common/const.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+_vue.default.use(_vuex.default);
+
+var store = new _vuex.default.Store({
+  state: {
+    logined: false, // 登录状态
+    token: '',
+    user: {}, // user信息
+    product: {} // produc:同一时间仅保存一个商品信息
+  },
+  mutations: {
+
+    /**
+                * @param {Object} data token value
+                */
+    setToken: function setToken(state, data) {
+      state.token = data;
+    },
+
+    /**
+        * @param {Object} data user info
+        */
+    login: function login(state, data) {
+      state.logined = true;
+      state.user = data;
+      wx.setStorage({
+        key: _const.default.Storage.USER,
+        data: data,
+        success: function success(e) {},
+        fail: function fail(e) {
+          console.error("Vuex -> login() -> setStorage() excetion:", e);
+        } });
+
+    },
+
+    /**
+        * @param {Object} data logout 
+        */
+    logout: function logout(state) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      state.logined = false;
+      state.user = data;
+      wx.clearStorage();
+    },
+
+    /**
+        * @param {Object} data 插入一条产品信息，临时媒介
+        */
+    produc: function produc(state, data) {
+      state.product = data;
+    },
+    /**
+        * @param {Object} data 浏览历史加入本地存储
+        */
+    addHistory: function addHistory(state, data) {
+      var key = _const.default.Storage.HISTORY;
+      var temp = [];
+      wx.getStorage({
+        key: key,
+        success: function success(res) {
+          if (res.data) {
+            if (res.data.length >= 18) {// 保留最新的20条数据
+              res.data.pop();
+            }
+            res.data.shift(data);
+            temp = res.data;
+          } else {
+            temp.push(data);
+          }
+        },
+        fail: function fail() {
+          temp.push(data);
+        },
+        complete: function complete() {
+          wx.setStorage({
+            key: key,
+            data: data,
+            success: function success(res) {
+              console.log("Add history:", res);
+            },
+            fail: function fail(e) {
+              console.error("Add history:", e);
+            } });
+
+        } });
+
+    },
+    /**
+        * remove history
+        */
+    clearHistory: function clearHistory() {
+      wx.removeStorage({
+        key: _const.default.Storage.HISTORY });
+
+    } },
+
+  actions: {} });var _default =
+
+
+store;exports.default = _default;
+
+/***/ }),
 /* 17 */
 /*!********************************************************************************!*\
   !*** C:/Users/admin/Documents/HBuilderProjects/mini-mall/common/uniRequest.js ***!
@@ -9722,10 +9745,10 @@ var index_esm = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {var _index = _interopRequireDefault(__webpack_require__(/*! ../store/index.js */ 15));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../store/index.js */ 16));
 var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 18));
 var _config2 = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
-var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 var config = {
   url: _config2.default.host,
@@ -9765,21 +9788,20 @@ function request(options) {
 
   Object.assign(header, options.header);
   options.header = header;
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject, complete) {
     var _config = {};
     Object.assign(_config, config, options);
     _config.requestId = new Date().getTime();
-    console.log("*******************", _config);
-    _reqlog(_config);
-    options.complete = function (res) {
-      console.log("-------------", res);
-      var statusCode = res.statusCode;
+    if (interceptor.request) {// 如果有设置请求拦截器,先进行请求拦截
+      _config = interceptor.request(_config);
+    }
+    _config.complete = function (res) {
       res.config = _config;
-      if (interceptor.response) {// 使用拦截器修改网络拦截数据
+      if (interceptor.response) {// 如果有设置响应拦截器,先进行响应拦截
         res = interceptor.response(res);
       }
-      resolve(res.data);
-      return;
+      // _reslog(res) // 内容过多,请自行控制是否打开日志
+      var statusCode = res.statusCode;
       if (statusCode === 200) {
         if (res.data.err_code === 4000) {// 如果有强制登录业务
           wx.navigateTo('/pages/login/index');
@@ -9796,16 +9818,23 @@ function request(options) {
           err_msg: 'server error!' };
 
         reject(temp);
-      } else if (statusCode === 302) {
-        // todo
+        _reslog(res);
+      } else if (statusCode === 0) {
+        // todo 其他http 状态自行处理
+      }
+      if (complete) {
+        complete(res);
       }
     };
-
-    uni.request(_config);
+    _reqlog(_config);
+    wx.request(_config);
   });
 
 }
 
+/**
+   * @param {Object} req 打印请求日志
+   */
 function _reqlog(req) {
   if (true) {
     console.log('【' + req.requestId + '】 url：' + req.url);
@@ -9815,56 +9844,53 @@ function _reqlog(req) {
   }
 }
 
+/**
+   * @param {Object} req 打印响应日志
+   */
 function _reslog(res) {
-  var _statusCode = res.data.err_code;
-  // if (process.env.NODE_ENV === 'development') {
-  // 	console.log("【" + res.config.requestId + "】 地址：" + res.config.url)
-  // 	if (res.config.data) {
-  // 		console.log("【" + res.config.requestId + "】 请求参数：" + JSON.stringify(res.config.data))
-  // 	}
-  // 	console.log("【" + res.config.requestId + "】 响应结果：" + JSON.stringify(res))
-  // }
-  //TODO 除了接口服务错误外，其他日志调接口异步写入日志数据库
-  switch (_statusCode) {
-    case 200:
-      break;
-    case 401:
-      // token为空
-      console.log('reponse-401');
-      break;
-    case 404:
-      break;
-    default:
-      break;}
-
+  if (true) {
+    console.log("【" + res.config.requestId + "】 地址：" + res.config.url);
+    if (res.config.data) {
+      console.log("【" + res.config.requestId + "】 请求参数：" + JSON.stringify(res.config.data));
+    }
+    console.log("【" + res.config.requestId + "】 响应结果：" + JSON.stringify(res));
+  }
 }
-
+/**
+   * get request
+   */
 function get(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   options.url = url;
   options.method = 'GET';
   options.data = data;
-  request(options);
+  return request(options);
 }
-
+/**
+   * post request
+   */
 function post(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   options.url = url;
   options.method = 'POST';
   options.data = data;
-  request(options);
+  return request(options);
 }
-
+/**
+   * put request
+   */
 function put(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   options.url = url;
   options.method = 'PUT';
   options.data = data;
-  request(options);
+  return request(options);
 }
-
+/**
+   * delete request
+   */
 function del(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   options.url = url;
   options.method = 'DELETE';
   options.data = data;
-  request(options);
+  return request(options);
 }
 
 module.exports.get = get;
@@ -9872,7 +9898,6 @@ module.exports.post = post;
 module.exports.put = put;
 module.exports.delele = del;
 module.exports.request = request;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */
@@ -9890,24 +9915,24 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var Env = {
   DEV: 'develop',
   PRE: 'preview',
-  PRO: 'production'
+  PRO: 'production' };
 
 
-  // 关于Storage key 声明
-};var Storage = {
+// 关于Storage key 声明
+var Storage = {
   USER: 'user_info',
   HISTORY: 'history_product',
-  TOKEN: 'token'
+  TOKEN: 'token' };
 
 
-  // 关于事件发送key,建议使用域名前缀
-};var Event = {
+// 关于事件发送key,建议使用域名前缀
+var Event = {
   LOGIN_SUCCESS: '/minimall/login_success',
-  LOGIN_OUT: '/minimall/logout_success'
+  LOGIN_OUT: '/minimall/logout_success' };
 
 
-  // 关于运行时的配置
-};var Runtime = {};var _default =
+// 关于运行时的配置
+var Runtime = {};var _default =
 
 
 
@@ -9934,6 +9959,8 @@ var PRO = _const.default.Env.PRO;
 var ENV = DEV;
 
 // 域名设置
+var versions = ['v1', 'v2', 'v3']; // 当前小程序版本
+
 var HOST_DEV = "https://jdtest.renrenyoupin.com"; //开发模式
 var HOST_PRE = "https://jdtest.renrenyoupin.com"; // 体验模式
 var HOST_PRO = "https://jd.renrenyoupin.com"; // 正式环境
@@ -9941,15 +9968,18 @@ var HOST_PRO = "https://jd.renrenyoupin.com"; // 正式环境
 var HOST = {
   develop: {
     host: HOST_DEV,
-    env: ENV },
+    env: ENV,
+    version: versions[0] },
 
   preview: {
     host: HOST_PRE,
-    env: ENV },
+    env: ENV,
+    version: versions[1] },
 
   production: {
     host: HOST_PRO,
-    env: ENV } };
+    env: ENV,
+    version: versions[2] } };
 
 
 
@@ -9969,6 +9999,7 @@ module.exports = HOST[ENV];
                *  所有页面的同一控制,在使用页面使用 this.$api.home进行引用
                */
 module.exports = {
+  check_user: 'user/checkuser',
   home: '/index.php/jdUnionApi/index', // 首页api
   product: '', // 商品详情api
   user: '', // 用户api
@@ -10008,11 +10039,11 @@ module.exports = {
 
 var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
 var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 18));
-var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   * 基础数据
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * 基础数据
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 var config = {
   host: _config.default.host,
   header: {
