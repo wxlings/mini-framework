@@ -56,10 +56,10 @@
 				},err=>{
 					this.$log('HOME LOAD FAIL',err)
 				})
-				let _this = this
-				setTimeout(()=>{
-					_this.$fetch.cancel(options.requestId)
-				},50)
+				// let _this = this
+				// setTimeout(()=>{
+				// 	_this.$fetch.cancel(options.requestId)
+				// },50)
 				
 			}
 		},

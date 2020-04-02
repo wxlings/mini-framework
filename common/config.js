@@ -9,12 +9,12 @@ const PRO = constant.Env.PRO
  */
 const ENV = DEV 
 
-// 域名设置
+// 版本控制
 const versions = ['v1','v2','v3'] // 当前小程序版本
-
-const HOST_DEV = "https://jdtest.renrenyoupin.com" //开发模式
-const HOST_PRE = "https://jdtest.renrenyoupin.com" // 体验模式
-const HOST_PRO = "https://jd.renrenyoupin.com" // 正式环境
+// 域名设置
+const HOST_DEV = 'https://jdtest.renrenyoupin.com' //开发模式
+const HOST_PRE = 'https://jdtest.renrenyoupin.com' // 体验模式
+const HOST_PRO = 'https://jd.renrenyoupin.com' // 正式环境
 
 const HOST = {
 	develop:{

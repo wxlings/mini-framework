@@ -19,15 +19,16 @@
 	},err=>{
 		this.$log('HOME LOAD FAIL',res.data)
 	})
-	
+	也可以这样使用：
 	let options = {
 		url:this.$api.home,
 		data:{
 			type:'home'
 		},
-		header:{}
+		header:{sn:''},
+		requestId:'home_fetch'
 	}
-	this.$fetch.request(),then(res=>{})
+	this.$fetch.request(),then(res=>{},err=>{})
  */
 
 import constant from './const.js'
@@ -112,14 +113,24 @@ function request(url,options){
 					}
 				}
 				options.fail =(res)=>{
-					wx.showToast({
-						title:'网络连接异常,请重试',
-						icon:'none'
-					})
-					reject({
-						err_code:-1,
-						err_msg: res.errMsg||'网络连接异常,请重试'
-					})
+					if(res.errMsg === 'request:fail abort'){
+						reject({
+							err_code:-1,
+							err_msg: res.errMsg||'中断请求'
+						})
+					}else{
+						wx.showToast({
+							title:'网络连接异常,请重试',
+							icon:'none'
+						})
+						reject({
+							err_code:0,
+							err_msg: res.errMsg||'网络请求失败'
+						})
+					}
+				}
+				options.complete = ()=>{
+					requests.delete(options.requestId)
 				}
 				if(interceptor.request){ // 如果有设置请求拦截器,先进行请求拦截
 					options = interceptor.request(options)

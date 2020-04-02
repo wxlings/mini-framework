@@ -9816,6 +9816,7 @@ var Runtime = {};var _default =
 
 
 
+
 var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));
 var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
 var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /** 基本使用:url可以同时放在optios中,以外部url为主
@@ -9838,22 +9839,22 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
                                                                                                                                                      	},err=>{
                                                                                                                                                      		this.$log('HOME LOAD FAIL',res.data)
                                                                                                                                                      	})
-                                                                                                                                                     	
+                                                                                                                                                     	也可以这样使用：
                                                                                                                                                      	let options = {
                                                                                                                                                      		url:this.$api.home,
                                                                                                                                                      		data:{
                                                                                                                                                      			type:'home'
                                                                                                                                                      		},
-                                                                                                                                                     		header:{}
+                                                                                                                                                     		header:{sn:''},
+                                                                                                                                                     		requestId:'home_fetch'
                                                                                                                                                      	}
-                                                                                                                                                     	this.$fetch.request(),then(res=>{})
+                                                                                                                                                     	this.$fetch.request(),then(res=>{},err=>{})
                                                                                                                                                       */var config = { url: _config.default.host, header: { 'Content-Type': 'application/x-www-form-urlencoded', 'version': _config.default.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
   } };var requests = new Map(); /**
                                  * 拦截器:如果需要对请求或者响应进行处理可以在这里处理
                                  */var interceptor = { request: function request(req) {_reqlog(req);return req;}, response: function response(res) {if (res.statusCode === 500) {_reslog(res);} // _reslog(res) 	//内容过多,请自行控制是否打开日志
     return res;} };function request(url, options) {var tempUrl = url || options.url || ''; // ;支持url 放在options中
-  if (tempUrl.indexOf('http://') !== 0 || tempUrl.indexOf('https://') !== 0) {options.url = _config.default.host + tempUrl;}options.header = Object.assign({}, config.header, options.header);
-  options.requestId = options.requestId || new Date().getTime();
+  if (tempUrl.indexOf('http://') !== 0 || tempUrl.indexOf('https://') !== 0) {options.url = _config.default.host + tempUrl;}options.header = Object.assign({}, config.header, options.header);options.requestId = options.requestId || new Date().getTime();
   return new Promise(function (resolve, reject) {
     wx.getStorage({
       key: _const.default.Storage.TOKEN,
@@ -9898,14 +9899,24 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
           }
         };
         options.fail = function (res) {
-          wx.showToast({
-            title: '网络连接异常,请重试',
-            icon: 'none' });
+          if (res.errMsg === 'request:fail abort') {
+            reject({
+              err_code: -1,
+              err_msg: res.errMsg || '中断请求' });
 
-          reject({
-            err_code: -1,
-            err_msg: res.errMsg || '网络连接异常,请重试' });
+          } else {
+            wx.showToast({
+              title: '网络连接异常,请重试',
+              icon: 'none' });
 
+            reject({
+              err_code: 0,
+              err_msg: res.errMsg || '网络请求失败' });
+
+          }
+        };
+        options.complete = function () {
+          requests.delete(options.requestId);
         };
         if (interceptor.request) {// 如果有设置请求拦截器,先进行请求拦截
           options = interceptor.request(options);
@@ -10009,12 +10020,12 @@ var PRO = _const.default.Env.PRO;
                                    */
 var ENV = DEV;
 
-// 域名设置
+// 版本控制
 var versions = ['v1', 'v2', 'v3']; // 当前小程序版本
-
-var HOST_DEV = "https://jdtest.renrenyoupin.com"; //开发模式
-var HOST_PRE = "https://jdtest.renrenyoupin.com"; // 体验模式
-var HOST_PRO = "https://jd.renrenyoupin.com"; // 正式环境
+// 域名设置
+var HOST_DEV = 'https://jdtest.renrenyoupin.com'; //开发模式
+var HOST_PRE = 'https://jdtest.renrenyoupin.com'; // 体验模式
+var HOST_PRO = 'https://jd.renrenyoupin.com'; // 正式环境
 
 var HOST = {
   develop: {
