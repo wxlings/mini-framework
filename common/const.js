@@ -3,7 +3,7 @@
  */
 
 const Env = {
-	DEV:'develop',
+	DEV:'development',
 	PRE:'preview',
 	PRO:'production'
 }

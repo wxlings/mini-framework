@@ -7,7 +7,7 @@ const PRO = constant.Env.PRO
 /**
  * 关键点:发布版本时重新赋值Env即可
  */
-const ENV = DEV 
+const ENV = PRE 
 
 // 版本控制
 const versions = ['v1','v2','v3'] // 当前小程序版本
@@ -17,7 +17,7 @@ const HOST_PRE = 'https://jdtest.renrenyoupin.com' // 体验模式
 const HOST_PRO = 'https://jd.renrenyoupin.com' // 正式环境
 
 const HOST = {
-	develop:{
+	development:{
 		host:HOST_DEV,
 		env:ENV,
 		version:versions[0]

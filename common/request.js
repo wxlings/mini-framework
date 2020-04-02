@@ -29,6 +29,8 @@
 		requestId:'home_fetch'
 	}
 	this.$fetch.request(),then(res=>{},err=>{})
+	
+	中断网络请求：this.$fetch.cancel('requestId') // 要在异步执行之后才能取消
  */
 
 import constant from './const.js'
@@ -105,7 +107,7 @@ function request(url,options){
 							err_code:statusCode,
 							err_msg:'请求的资源未找到'
 						})
-					} if(statusCode === 'some-code'){ // todo 其他http 状态自行处理
+					}else if(statusCode === 'some-code'){ // todo 其他http 状态自行处理
 						reject({
 							err_code:statusCode,
 							err_msg:res.errMsg
@@ -114,19 +116,13 @@ function request(url,options){
 				}
 				options.fail =(res)=>{
 					if(res.errMsg === 'request:fail abort'){
-						reject({
-							err_code:-1,
-							err_msg: res.errMsg||'中断请求'
-						})
+						reject(res)
 					}else{
 						wx.showToast({
 							title:'网络连接异常,请重试',
 							icon:'none'
 						})
-						reject({
-							err_code:0,
-							err_msg: res.errMsg||'网络请求失败'
-						})
+						reject(res)
 					}
 				}
 				options.complete = ()=>{
@@ -145,7 +141,7 @@ function request(url,options){
  * @param {Object} req 打印请求日志
  */
 function _reqlog(req) {
-	if(process.env.NODE_ENV === 'development') {
+	if(conf.env !== constant.Env.PRO) {
 		console.log('【' + req.requestId + '】url:',req.url);
 		if(req.data) {
 			console.log('【' + req.requestId + '】params:',req.data);
@@ -157,7 +153,7 @@ function _reqlog(req) {
  * @param {Object} req 打印响应日志
  */
 function _reslog(res) {
-  if (process.env.NODE_ENV === 'development') {
+  if (conf.env !== constant.Env.PRO) {
 	console.log("【" + res.requestId + "】response:",res)
   }
 }
@@ -195,6 +191,9 @@ function del(url,data={},options={}){
 	return request(url,options)
 }
 
+/**
+ * @param {Object} requestId cancel request task with requestId
+ */
 function cancel(requestId){
 	if(requestId || requestId === 0){
 		if(requests.has(requestId)){

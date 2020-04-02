@@ -9750,7 +9750,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
                                                                                                       */
 
 var Env = {
-  DEV: 'develop',
+  DEV: 'development',
   PRE: 'preview',
   PRO: 'production' };
 
@@ -9817,6 +9817,8 @@ var Runtime = {};var _default =
 
 
 
+
+
 var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));
 var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
 var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /** 基本使用:url可以同时放在optios中,以外部url为主
@@ -9849,14 +9851,14 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
                                                                                                                                                      		requestId:'home_fetch'
                                                                                                                                                      	}
                                                                                                                                                      	this.$fetch.request(),then(res=>{},err=>{})
+                                                                                                                                                     	
+                                                                                                                                                     	中断网络请求：this.$fetch.cancel('requestId') // 要在异步执行之后才能取消
                                                                                                                                                       */var config = { url: _config.default.host, header: { 'Content-Type': 'application/x-www-form-urlencoded', 'version': _config.default.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
   } };var requests = new Map(); /**
                                  * 拦截器:如果需要对请求或者响应进行处理可以在这里处理
                                  */var interceptor = { request: function request(req) {_reqlog(req);return req;}, response: function response(res) {if (res.statusCode === 500) {_reslog(res);} // _reslog(res) 	//内容过多,请自行控制是否打开日志
     return res;} };function request(url, options) {var tempUrl = url || options.url || ''; // ;支持url 放在options中
-  if (tempUrl.indexOf('http://') !== 0 || tempUrl.indexOf('https://') !== 0) {options.url = _config.default.host + tempUrl;}options.header = Object.assign({}, config.header, options.header);options.requestId = options.requestId || new Date().getTime();
-  return new Promise(function (resolve, reject) {
-    wx.getStorage({
+  if (tempUrl.indexOf('http://') !== 0 || tempUrl.indexOf('https://') !== 0) {options.url = _config.default.host + tempUrl;}options.header = Object.assign({}, config.header, options.header);options.requestId = options.requestId || new Date().getTime();return new Promise(function (resolve, reject) {wx.getStorage({
       key: _const.default.Storage.TOKEN,
       success: function success(res) {
         options.header.token = res.data;
@@ -9891,7 +9893,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
               err_code: statusCode,
               err_msg: '请求的资源未找到' });
 
-          }if (statusCode === 'some-code') {// todo 其他http 状态自行处理
+          } else if (statusCode === 'some-code') {// todo 其他http 状态自行处理
             reject({
               err_code: statusCode,
               err_msg: res.errMsg });
@@ -9900,19 +9902,13 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
         };
         options.fail = function (res) {
           if (res.errMsg === 'request:fail abort') {
-            reject({
-              err_code: -1,
-              err_msg: res.errMsg || '中断请求' });
-
+            reject(res);
           } else {
             wx.showToast({
               title: '网络连接异常,请重试',
               icon: 'none' });
 
-            reject({
-              err_code: 0,
-              err_msg: res.errMsg || '网络请求失败' });
-
+            reject(res);
           }
         };
         options.complete = function () {
@@ -9931,7 +9927,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
    * @param {Object} req 打印请求日志
    */
 function _reqlog(req) {
-  if (true) {
+  if (_config.default.env !== _const.default.Env.PRO) {
     console.log('【' + req.requestId + '】url:', req.url);
     if (req.data) {
       console.log('【' + req.requestId + '】params:', req.data);
@@ -9943,7 +9939,7 @@ function _reqlog(req) {
    * @param {Object} req 打印响应日志
    */
 function _reslog(res) {
-  if (true) {
+  if (_config.default.env !== _const.default.Env.PRO) {
     console.log("【" + res.requestId + "】response:", res);
   }
 }
@@ -9981,6 +9977,9 @@ function del(url) {var data = arguments.length > 1 && arguments[1] !== undefined
   return request(url, options);
 }
 
+/**
+   * @param {Object} requestId cancel request task with requestId
+   */
 function cancel(requestId) {
   if (requestId || requestId === 0) {
     if (requests.has(requestId)) {
@@ -10018,7 +10017,7 @@ var PRO = _const.default.Env.PRO;
 /**
                                    * 关键点:发布版本时重新赋值Env即可
                                    */
-var ENV = DEV;
+var ENV = PRE;
 
 // 版本控制
 var versions = ['v1', 'v2', 'v3']; // 当前小程序版本
@@ -10028,7 +10027,7 @@ var HOST_PRE = 'https://jdtest.renrenyoupin.com'; // 体验模式
 var HOST_PRO = 'https://jd.renrenyoupin.com'; // 正式环境
 
 var HOST = {
-  develop: {
+  development: {
     host: HOST_DEV,
     env: ENV,
     version: versions[0] },
