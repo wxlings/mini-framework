@@ -42,3 +42,49 @@
 	let b = Object.assin({},a)
 	
 ```
+
+
+ > ###[Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise) 对象用于表示一个异步操作的最终完成 (或失败), 及其结果值 ;Promise是一个函数返回的对象，我们可以在它上面绑定回调函数，这样我们就不需要在一开始把回调函数作为参数传入这个函数了。
+ ```js
+	let _this = this
+	let request = new Promise((resolve,reject) =>{
+		
+		setTimeout(()=>{
+			let success = {
+				code:1,
+				msg:'success'
+			}
+			let fail={
+				code:0,
+				msg:'fail'
+			}
+			resolve(success)
+			//reject(fail)
+		},3000)
+	})
+	
+	request.then(res=>{
+		console.log("resolve callback:",res)
+	},err=>{
+		console.log("reject callback:",res)
+	})
+	
+	Promist 支持链式调用
+ ```
+ 
+ 
+ > ###[Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)保存键值对，并且能够记住键的原始插入顺序。任何值(对象或者原始值) 都可以作为一个键或一个值。
+ ```js
+	let map = new Map(['k','v']) // 可以在构造函数直接初始化值
+	map.set('key','value') // add key-value 键值对
+	let hadKey = map.has(key) // 是否含有key值 :Boolean
+	let value = map.get(key) // 获取key对应的value，如果没有则返回undifine
+	let keys = map.keys() // 返回所有key的Iterator
+	let values = map.values() // 返回所有value的Iterator
+	let entries = map.entries() // 返回一个key-value键值对的Iterator
+	map.delete(key) // 移除指定的key关联的键值对
+	map.clear() // 移除所有键值对
+	map.forEach((value,key,map)=>{ // 遍历Map并执行函数
+		console.log('key:',key,'value:',value,'lenth:',map.length)
+	})
+ ```

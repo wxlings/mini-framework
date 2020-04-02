@@ -7,7 +7,7 @@ const PRO = constant.Env.PRO
 /**
  * 关键点:发布版本时重新赋值Env即可
  */
-const ENV = PRE 
+const ENV = DEV 
 
 // 版本控制
 const versions = ['v1','v2','v3'] // 当前小程序版本

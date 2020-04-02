@@ -9996,7 +9996,7 @@ var PRO = _const.default.Env.PRO;
 /**
                                    * 关键点:发布版本时重新赋值Env即可
                                    */
-var ENV = PRE;
+var ENV = DEV;
 
 // 版本控制
 var versions = ['v1', 'v2', 'v3']; // 当前小程序版本
