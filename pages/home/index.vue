@@ -39,7 +39,7 @@
 		methods:{
 			loadData(){
 				let url = this.$api.home;
-				let params = {
+				let data = {
 					page:1,
 					type:'home'
 				}
@@ -51,7 +51,7 @@
 					requestId:'home-fetch',
 				}
 				
-				this.$fetch.get(url,params,options).then(res=>{
+				this.$fetch.get(url,data,options).then(res=>{
 					this.$log('HOME LOAD',res)
 				},err=>{
 					this.$log('HOME LOAD FAIL',err)
@@ -60,7 +60,6 @@
 				// setTimeout(()=>{
 				// 	_this.$fetch.cancel(options.requestId)
 				// },50)
-				
 			}
 		},
 		

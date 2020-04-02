@@ -170,7 +170,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
   methods: {
     loadData: function loadData() {var _this = this;
       var url = this.$api.home;
-      var params = {
+      var data = {
         page: 1,
         type: 'home' };
 
@@ -182,7 +182,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
         requestId: 'home-fetch' };
 
 
-      this.$fetch.get(url, params, options).then(function (res) {
+      this.$fetch.get(url, data, options).then(function (res) {
         _this.$log('HOME LOAD', res);
       }, function (err) {
         _this.$log('HOME LOAD FAIL', err);
@@ -191,7 +191,6 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
       // setTimeout(()=>{
       // 	_this.$fetch.cancel(options.requestId)
       // },50)
-
     } } };exports.default = _default;
 
 /***/ })

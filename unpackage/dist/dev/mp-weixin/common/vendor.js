@@ -9798,67 +9798,46 @@ var Runtime = {};var _default =
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));
 var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
-var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /** 基本使用:url可以同时放在optios中,以外部url为主
+var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /** 
                                                                                                                                                      	声明的options支持的参数请阅官方文档 https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html
-                                                                                                                                                      * let url = this.$api.home;
-                                                                                                                                                      * let params = {
-                                                                                                                                                     		page:1,
-                                                                                                                                                     		type:'home',...
-                                                                                                                                                     	}
-                                                                                                                                                     	let options = {
-                                                                                                                                                     		header:{
-                                                                                                                                                     			sn:'aslkdfj',
-                                                                                                                                                     			Authorization:'Bear 123456789'
-                                                                                                                                                     		},
-                                                                                                                                                     		requestId:'home-fetch',
-                                                                                                                                                     		url:url,...
-                                                                                                                                                     	}
-                                                                                                                                                     	this.$fetch.get(url,params,options).then(res=>{
-                                                                                                                                                     		this.$log('HOME LOAD',res.data)
-                                                                                                                                                     	},err=>{
-                                                                                                                                                     		this.$log('HOME LOAD FAIL',res.data)
-                                                                                                                                                     	})
+                                                                                                                                                      *  let url = this.$api.home;
+                                                                                                                                                      *  let data = {type:'home',...}
+                                                                                                                                                     	let options = {header:{sn:'aslkdfj',Authorization:'Bear 123456789',...},requestId:'home-fetch',...}
+                                                                                                                                                     	this.$fetch.get(url,data,options).then(res=>{this.$log('HOME LOAD',res.data)},err=>{this.$log('HOME LOAD FAIL',res.data)})
                                                                                                                                                      	也可以这样使用：
-                                                                                                                                                     	let options = {
-                                                                                                                                                     		url:this.$api.home,
-                                                                                                                                                     		data:{
-                                                                                                                                                     			type:'home'
-                                                                                                                                                     		},
-                                                                                                                                                     		header:{sn:''},
-                                                                                                                                                     		requestId:'home_fetch'
-                                                                                                                                                     	}
+                                                                                                                                                     	let options = {url:this.$api.home,data:{type:'home'},header:{sn:''},requestId:'home_fetch'}
                                                                                                                                                      	this.$fetch.request(),then(res=>{},err=>{})
-                                                                                                                                                     	
-                                                                                                                                                     	中断网络请求：this.$fetch.cancel('requestId') // 要在异步执行之后才能取消
+                                                                                                                                                     	中断请求：
+                                                                                                                                                     	this.$fetch.cancel('requestId') // 要在异步发起请求之后才能取消
                                                                                                                                                       */var config = { url: _config.default.host, header: { 'Content-Type': 'application/x-www-form-urlencoded', 'version': _config.default.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
   } };var requests = new Map(); /**
                                  * 拦截器:如果需要对请求或者响应进行处理可以在这里处理
-                                 */var interceptor = { request: function request(req) {_reqlog(req);return req;}, response: function response(res) {if (res.statusCode === 500) {_reslog(res);} // _reslog(res) 	//内容过多,请自行控制是否打开日志
-    return res;} };function request(url, options) {var tempUrl = url || options.url || ''; // ;支持url 放在options中
-  if (tempUrl.indexOf('http://') !== 0 || tempUrl.indexOf('https://') !== 0) {options.url = _config.default.host + tempUrl;}options.header = Object.assign({}, config.header, options.header);options.requestId = options.requestId || new Date().getTime();return new Promise(function (resolve, reject) {wx.getStorage({
+                                 */
+var interceptor = {
+  request: function request(req) {
+    _reqlog(req);
+    return req;
+  },
+  response: function response(res) {
+    // if(res.statusCode === 500){
+    // 	_reslog(res)
+    // }
+    _reslog(res); //内容过多,请自行控制是否打开日志
+    return res;
+  } };
+
+
+function request(url, options) {
+  var tempUrl = url || options.url || ''; // ;支持url 放在options中
+  if (tempUrl.indexOf('http://') !== 0 || tempUrl.indexOf('https://') !== 0) {
+    options.url = _config.default.host + tempUrl;
+  }
+  options.header = Object.assign({}, config.header, options.header);
+  options.requestId = options.requestId || new Date().getTime();
+  return new Promise(function (resolve, reject) {
+    wx.getStorage({
       key: _const.default.Storage.TOKEN,
       success: function success(res) {
         options.header.token = res.data;
