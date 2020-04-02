@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index.js'
-import uniHttpRequest from './common/uniRequest.js'
-import wxHttpRequest from './common/wxRequest.js'
+import request from './common/request.js'
 import constant from './common/const.js'
 import config from './common/config.js'
 import api from './common/api.js'
@@ -53,8 +52,7 @@ Vue.prototype.$const = constant; // 全局常量池 : this.$const.Storage.HISTOR
 Vue.prototype.$log = log; // 全局log : this.$log(tag,msg)
 Vue.prototype.$showToast = showToast; // 全局toast : this.$showToast("hello")
 Vue.prototype.$showLoading = showLoading; // 全局toast : this.$showToast("hello")
-Vue.prototype.$fetch = uniHttpRequest;
-// Vue.prototype.$fetch = wxHttpRequest
+Vue.prototype.$fetch = request;
 
 App.mpType = 'app'
 

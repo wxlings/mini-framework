@@ -46,37 +46,21 @@
 				let options = {
 					header:{
 						sn:'aslkdfj',
-						Authorization:'Bear 123456789...'
-					}
+						Authorization:'Bear 123456789'
+					},
+					requestId:'home-fetch',
 				}
 				
 				this.$fetch.get(url,params,options).then(res=>{
-					console.log('Home load data:',res)
+					this.$log('HOME LOAD',res)
 				},err=>{
-					console.log('Home error:',err)
-				},compele=>{
-					console.log('Home compele:',compele)
+					this.$log('HOME LOAD FAIL',err)
 				})
-			},
-			
-			loadData_v2(){
-				let url = this.$api.home
-				let data = {
-						page:1,type:'home'
-				}
-				let options = {
-					header:{
-						sn:'aslkdfj'
-					},
-					Authorization:'Bear 123456789...',
-					success(res){
-						console.log("success:",res)
-					},
-					fail(e){
-						console.log("fail:",res)
-					}
-				}
-				this.$fetch.get(url,data,options)
+				let _this = this
+				setTimeout(()=>{
+					_this.$fetch.cancel(options.requestId)
+				},50)
+				
 			}
 		},
 		
