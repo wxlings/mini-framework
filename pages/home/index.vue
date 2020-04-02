@@ -23,6 +23,17 @@
 		},
 		onShow(options) {
 			
+			let person ={
+				name:"wxl",
+				age:14,
+				say(){
+					console.log('say some .....')
+				}
+			}
+			
+			console.log(person.name)
+			console.log(person['age'])
+			person.say()
 		},
 		onReady(){
 			
