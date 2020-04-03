@@ -141,7 +141,8 @@ var _default =
     return {};
 
 
-  } };exports.default = _default;
+  },
+  methods: {} };exports.default = _default;
 
 /***/ })
 

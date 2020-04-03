@@ -149,22 +149,10 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
 
   onLoad: function onLoad(options) {
     // this.$log("HOME ONLOAD",options)
-    this.loadData();
-    // this.loadData_v2()
+    // this.loadData()
   },
   onShow: function onShow(options) {
 
-    var person = {
-      name: "wxl",
-      age: 14,
-      say: function say() {
-        console.log('say some .....');
-      } };
-
-
-    console.log(person.name);
-    console.log(person['age']);
-    person.say();
   },
   onReady: function onReady() {
 

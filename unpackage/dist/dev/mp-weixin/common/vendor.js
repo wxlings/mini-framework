@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7086,7 +7086,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7107,14 +7107,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7190,7 +7190,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9811,8 +9811,9 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
                                                                                                                                                      	this.$fetch.request(),then(res=>{},err=>{})
                                                                                                                                                      	中断请求：
                                                                                                                                                      	this.$fetch.cancel('requestId') // 要在异步发起请求之后才能取消
-                                                                                                                                                      */var config = { url: _config.default.host, header: { 'Content-Type': 'application/x-www-form-urlencoded', 'version': _config.default.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
-  } };var requests = new Map(); /**
+                                                                                                                                                      */var config = { url: _config.default.host, header: { 'Content-Type': 'application/x-www-form-urlencoded', 'token': '', 'version': _config.default.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
+  } };var requests = new Map();
+/**
                                  * 拦截器:如果需要对请求或者响应进行处理可以在这里处理
                                  */
 var interceptor = {
@@ -9997,9 +9998,11 @@ var PRO = _const.default.Env.PRO;
                                    * 关键点:发布版本时重新赋值Env即可
                                    */
 var ENV = DEV;
-
 // 版本控制
-var versions = ['v1', 'v2', 'v3']; // 当前小程序版本
+var versions = ['1', '1', '1']; // 当前小程序版本
+
+
+
 // 域名设置
 var HOST_DEV = 'https://jdtest.renrenyoupin.com'; //开发模式
 var HOST_PRE = 'https://jdtest.renrenyoupin.com'; // 体验模式
@@ -10035,8 +10038,8 @@ module.exports = HOST[ENV];
 
 "use strict";
 
-/*
-               *  所有页面的同一控制,在使用页面使用 this.$api.home进行引用
+/**
+               *  所有页面的api统一控制,在使用页面使用 this.$api.***进行引用
                */
 module.exports = {
   check_user: 'user/checkuser',

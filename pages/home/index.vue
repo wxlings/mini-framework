@@ -18,22 +18,10 @@
 		},
 		onLoad(options) {
 			// this.$log("HOME ONLOAD",options)
-			this.loadData()
-			// this.loadData_v2()
+			// this.loadData()
 		},
 		onShow(options) {
 			
-			let person ={
-				name:"wxl",
-				age:14,
-				say(){
-					console.log('say some .....')
-				}
-			}
-			
-			console.log(person.name)
-			console.log(person['age'])
-			person.say()
 		},
 		onReady(){
 			

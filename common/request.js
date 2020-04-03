@@ -16,20 +16,21 @@ import constant from './const.js'
 import conf from './config.js'
 import api from './api.js'
 
-let config = {
+const config = {
 	url:conf.host,
 	header:{
 		'Content-Type': 'application/x-www-form-urlencoded',
+		'token':'',
 		'version':conf.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
 	}
 }
 
-let requests = new Map()
+const requests = new Map()
 
 /**
  * 拦截器:如果需要对请求或者响应进行处理可以在这里处理
  */
-let interceptor = {
+const interceptor = {
 	request:(req)=>{
 		_reqlog(req)
 		return req

@@ -1,6 +1,6 @@
 
-/*
- *  所有页面的同一控制,在使用页面使用 this.$api.home进行引用
+/**
+ *  所有页面的api统一控制,在使用页面使用 this.$api.***进行引用
  */
 module.exports = {
 	check_user:'user/checkuser',
