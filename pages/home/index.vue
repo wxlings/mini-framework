@@ -17,8 +17,7 @@
 			...mapState(['logined','user']) // 应用内数据状态共享
 		},
 		onLoad(options) {
-			// this.$log("HOME ONLOAD",options)
-			// this.loadData()
+			
 		},
 		onShow(options) {
 			

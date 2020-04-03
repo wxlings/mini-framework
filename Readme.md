@@ -1,48 +1,3 @@
-> js 语法
-```js
-
-	js 空格:&nbsp >:&gt;
-	
-
-	数组操作： let first = ['a','b','c','d'] let second = ['e','f','g']
-	数组合并： concat
-	let new = first.concat(second) //合并到 ['a','b','c','d','e','f','g'] 
-	
-	向数组+最后插入元素：push
-	first.push("z") // ['a','b','c','d','z']
-	移除最后一个元素：pop
-	first.pop() // ['a','b','c']
-	向数组第一位插入数据： shift
-	first.shift('k') // ['k','a','b','c','d']
-	移除数组第一位元素：unshift
-	first.unshift() // ['b','c','d']
-	
-	indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置。
-	
-	如果没有找到匹配的字符串则返回 -1。
-	
-	
-	数组的深复制:
-	let a = [1,2,3]
-	
-	> es6 ...
-	let b = [...a]
-	b.push(4) // b = [1,2,3,4]
-	
-	> concat
-	let c = concat([],a) 
-	c.push(4) // c = [1,2,3,4]
-	
-	> from
-
-
-	对象的深复制: 常用方式
-	let a = {name:'w',age:20}
-	let b = Object.assin({},a) // 方式一 常用
-	let c = Object.create(a) // 方式二
-	let d = {...a} // 方式三 es6
-	
-```
 
 > #### 基础
  ```js
@@ -52,13 +7,16 @@
 	`const` 声明一个常量，一但声明，常量的值就不能改变。如果是引用类型的值,引用数据内部数据可以修改，如canst arr = [person] person.name = 'w' person.name = 'x'
  ```
 
+
 > #### [es6](https://www.runoob.com/w3cnote/es6-object.html)
+
 
 > #### 常量符号：
  ```js
 	人民币符号:  `¥`  `￥`
 	html实体符号: `空格` => `&nbsp` , `>` => `&gt;` , `<` => `&lt;` , `"` =>`&quot;` , `&` => `&amp;`
  ```
+
 
 > #### [数据类型](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)
 ```js
@@ -120,8 +78,9 @@
 		
 ```
 
- > #### [Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise) 对象用于表示一个异步操作的最终完成 (或失败), 及其结果值 ;Promise是一个函数返回的对象，我们可以在它上面绑定回调函数，这样我们就不需要在一开始把回调函数作为参数传入这个函数了。
- 
+
+> #### [Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise) 对象用于表示一个异步操作的最终完成 (或失败), 及其结果值 ;Promise是一个函数返回的对象，我们可以在它上面绑定回调函数，这样我们就不需要在一开始把回调函数作为参数传入这个函数了。
+
  ```js
 	let request = new Promise((resolve,reject) =>{
 		setTimeout(()=>{
@@ -146,10 +105,9 @@
 	
 	Promist 支持链式调用
  ```
- 
- 
- > #### [Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map) 保存键值对，能够记住键的原始插入顺序。任何值(对象或者原始值) 都可以作为一个键或一个值。
- 
+
+
+> #### [Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map) 保存键值对，能够记住键的原始插入顺序。任何值(对象或者原始值) 都可以作为一个键或一个值。
  ```js
 	let map = new Map([['k','v'],['key','value']]) // 可以在构造函数直接初始化值,类似数组包数组
 	map.set('keys','values') // 设置 key-value 键值对
@@ -164,8 +122,9 @@
 		console.log('key:',key,'value:',value,'lenth:',map.length)
 	})
  ```
- 
- > #### [Object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object) 一个对象包装器。
+
+
+> #### [Object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object) 一个对象包装器。
 ```js
 	let person = {
 		name:'Jeck',
@@ -194,23 +153,37 @@
 	
 	`let t = Object.assign(target,sourse,sourse,...)` //把所有sourse 对象的枚举属性复制并赋值给target,如果key有相同，以最后赋值为准
 	
-	 let a = {name:'wxl',age:21}
+	let a = {name:'wxl',age:21}
 	let b = {name:'jeck',gender:1}
 	let c = {job:'sleep'}
-	let d = Object.assin(a,b,c) // 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。{name:'jeck',age:21,gender:'male'}
+	
+	将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
+	let d = Object.assin(a,b,c) //它将返回目标对象。{name:'jeck',age:21,gender:'male'}
 	>>> console.log(a,b,c,d) // a === d 
 
-	> 深层次复制对象,生成一个新对象
+	深层次复制对象,生成一个新对象
 	let f = Object.create(a)
+	f = Object.assign({},a) //  有同样的作用
 	console.log(f === a) // false 只是内容相同，内存引用不同
 	
 	`...`  对象的拓展运算符:用于取出参数对象所有可遍历属性然后拷贝到当前对象。
 	let e = {...b} // d 与 b的属性相同
 	let g = {...b,...c} // 把两个对象合并生成一个新的对象
 	>>> console.log(e,g)
+	
+	遍历对象：
+	for(let key in person){
+		console.log('key',key)
+	}
+	
+	判断对象是否包含给出的属性值,建议使用 `in` 逻辑
+	let hasKey = person.hasOwnProperty('key')
+	hasKey = 'name' in person
+	
 ```
 
-> #### [Funcation](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/function)
+
+> #### [Function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/function)
 ```js 
 	基本函数:
 	`function` 关键字可以用来在一个表达式中定义一个函数。
@@ -239,6 +212,7 @@
 	>>> f()
 ```
 
+
 > #### [JSON](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON)  对象包含两个方法,除了这两个方法, JSON这个对象本身并没有其他作用，也不能被调用或者作为构造函数调用。
 ```js
 	`JSON.parse()` 解析JSON字符串并返回对应的值，可以额外传入一个转换函数，用来将生成的值和其属性, 在返回之前进行某些修改。
@@ -252,4 +226,64 @@
 	>>> let s = JSON.stringify(p)
 	>>> let o = JSON.parse(s)
 	>>> console.log(s,o)
+```
+
+
+> #### [Array](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
+```js
+	let arr = ['a','b','c']
+	let temp = arr[0]
+	>>> console.log(arr,arr.length,temp)
+	
+	添加一个元素到末尾
+	arr.push('d')
+	移除末尾元素
+	arr.pop()
+	添加一个元素到首部（index=0)
+	arr.unshift('letter')
+	移除首部的一个元素（index=0)
+	arr.shift()
+	找到元素在数组中的索引,如果没有返回-1，与String.indexOf()相同
+	let index = arr.indexOf('e')
+	通过给出的索引位置删除给出数量的元素
+	arr.splice(index,num) 
+	>>> arr.splice(1,2) // ['a']
+	倒序排列一个数组
+	let reverse = arr.reverse()
+	复制一个数组
+	let array = arr.splice() 
+	按照字典进行排序
+	arr.sort()
+	拼接多个数组
+	let array = arr.concat(arr,arr,arr)
+	是否包含给出的元素 boolean
+	let hasValue = arr.includes('d')
+	连接所有元素与指定标识符
+	let str = arr.join('-')
+	>>> console.log(str) // a-b-c
+	从类数组对象或者可迭代对象中创建一个新的数组实例。
+	Array.from(arr)
+	用来判断某个变量是否是一个数组对象。
+	Array.isArray()
+	根据一组参数来创建新的数组实例，支持任意的参数数量和类型。
+	Array.of()
+	
+	遍历数组1.
+	arr.forEach((item,index,arr) => {
+		console.log('index:',index,'value:',item,'array:',arr)
+	})
+	遍历数组2.不建议使用
+	for(let key in arr){
+		console.log(key) // 所有索引
+	}
+	遍历数组3.
+	for(let value of arr){
+		console.log(key) // 所有值
+	}
+	遍历数组4.
+	for(let i = 0;i<arr.length;i++){
+		console.log('index:',i)
+	}
+	
+	遍历： 对象用`in`,数组用`of`
 ```

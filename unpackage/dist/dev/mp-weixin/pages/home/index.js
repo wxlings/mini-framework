@@ -148,8 +148,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
   (0, _vuex.mapState)(['logined', 'user'])),
 
   onLoad: function onLoad(options) {
-    // this.$log("HOME ONLOAD",options)
-    // this.loadData()
+
   },
   onShow: function onShow(options) {
 
