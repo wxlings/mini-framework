@@ -1,32 +1,32 @@
-/**直接获取`state`值和使用`getter`获取:
- * 1. 使用`this.$store.***.***`
- * 		let product = this.$store.state.product
- * 		let token = this.$store.getters.getUserToken
- * 2. 使用`mapState`和`mapGetters` ,可以绑定到页面元素
- * 		import {mapState,mapGetters} from 'vuex'
- * 		computed:{
-			...mapState(['logined','user'])
-			...mapGetters({sn:getUserSn,token:getUserToken})
-		}
-		onLoad(options){
-			console.log(this.logined,this.user,this.sn,this.token)
-		}
- * 
- * 修改	`state`值状态: `mutation`(仅支持同步操作)和`action`(支持异步操作)
- * 1. 使用`this.$store.commit('***',data)` // data选填
- * 		this.$store.commit('login',{user:'w',age:26,gender:'male'}})
- * 		this.$store.dispatch('relogin',{header:{token:'...'}})
- * 
- * 2. 使用`mapMutations`和`mapActions`
- * 		import {mapMutation,mapActions} from 'vuex'
- * 		methods:{
-			...mapMutations(['login','product'])
-			...mapActions(['relogin','forceLogout'])
-		}
-		onLoad(options){
-			this.product({title:'abc',id:'56565',...})
-			this.forceLogout({header:{token:'...'})
-		}
+/**
+直接获取`state`和使用`getter`获取:
+1. 使用`this.$store.***.***`
+  	let product = this.$store.state.product
+  	let token = this.$store.getters.getUserToken
+2. 使用`mapState`和`mapGetters` ,可以绑定到页面元素
+	import {mapState,mapGetters} from 'vuex'
+ 	computed:{
+		...mapState(['logined','user'])
+		...mapGetters({sn:getUserSn,token:getUserToken})
+	}
+	onLoad(options){
+		console.log(this.logined,this.user,this.sn,this.token)
+	}
+ 
+修改`state`值状态:`mutation`(仅支持同步操作)和`action`(支持异步操作)
+1. 使用`this.$store.commit('***',data)` // data选填
+ 	this.$store.commit('login',{user:'w',age:26,gender:'male'}})
+	this.$store.dispatch('relogin',{header:{token:'...'}})
+2. 使用`mapMutations`和`mapActions`
+	import {mapMutation,mapActions} from 'vuex'
+	methods:{
+		...mapMutations(['login','product'])
+		...mapActions(['relogin','forceLogout'])
+	}
+	onLoad(options){
+		this.product({title:'abc',id:'56565',...})
+		this.forceLogout({header:{token:'...'})
+	}
  */
 
 import Vue from 'vue';

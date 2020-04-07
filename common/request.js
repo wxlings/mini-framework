@@ -1,14 +1,14 @@
 
 /** 
-	声明的options支持的参数请阅官方文档 https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html
- *  let url = this.$api.home;
- *  let data = {type:'home',...}
+声明的options支持的参数请阅官方文档 https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html
+	let url = this.$api.home;
+	let data = {type:'home',...}
 	let options = {header:{sn:'aslkdfj',Authorization:'Bear 123456789',...},requestId:'home-fetch',...}
 	this.$fetch.get(url,data,options).then(res=>{this.$log('HOME LOAD',res.data)},err=>{this.$log('HOME LOAD FAIL',res.data)})
-	也可以这样使用：
+也可以这样使用：
 	let options = {url:this.$api.home,data:{type:'home'},header:{sn:''},requestId:'home_fetch'}
 	this.$fetch.request(),then(res=>{},err=>{})
-	中断请求：
+中断请求：
 	this.$fetch.cancel('requestId') // 要在异步发起请求之后才能取消
  */
 

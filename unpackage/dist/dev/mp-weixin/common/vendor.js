@@ -9667,35 +9667,35 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 12));
 var _const = _interopRequireDefault(__webpack_require__(/*! ../common/const.js */ 17));
-var _api = _interopRequireDefault(__webpack_require__(/*! ../common/api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**直接获取`state`值和使用`getter`获取:
-                                                                                                                                                              * 1. 使用`this.$store.***.***`
-                                                                                                                                                              * 		let product = this.$store.state.product
-                                                                                                                                                              * 		let token = this.$store.getters.getUserToken
-                                                                                                                                                              * 2. 使用`mapState`和`mapGetters` ,可以绑定到页面元素
-                                                                                                                                                              * 		import {mapState,mapGetters} from 'vuex'
-                                                                                                                                                              * 		computed:{
-                                                                                                                                                             			...mapState(['logined','user'])
-                                                                                                                                                             			...mapGetters({sn:getUserSn,token:getUserToken})
-                                                                                                                                                             		}
-                                                                                                                                                             		onLoad(options){
-                                                                                                                                                             			console.log(this.logined,this.user,this.sn,this.token)
-                                                                                                                                                             		}
-                                                                                                                                                              * 
-                                                                                                                                                              * 修改	`state`值状态: `mutation`(仅支持同步操作)和`action`(支持异步操作)
-                                                                                                                                                              * 1. 使用`this.$store.commit('***',data)` // data选填
-                                                                                                                                                              * 		this.$store.commit('login',{user:'w',age:26,gender:'male'}})
-                                                                                                                                                              * 		this.$store.dispatch('relogin',{header:{token:'...'}})
-                                                                                                                                                              * 
-                                                                                                                                                              * 2. 使用`mapMutations`和`mapActions`
-                                                                                                                                                              * 		import {mapMutation,mapActions} from 'vuex'
-                                                                                                                                                              * 		methods:{
-                                                                                                                                                             			...mapMutations(['login','product'])
-                                                                                                                                                             			...mapActions(['relogin','forceLogout'])
-                                                                                                                                                             		}
-                                                                                                                                                             		onLoad(options){
-                                                                                                                                                             			this.product({title:'abc',id:'56565',...})
-                                                                                                                                                             			this.forceLogout({header:{token:'...'})
-                                                                                                                                                             		}
+var _api = _interopRequireDefault(__webpack_require__(/*! ../common/api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+                                                                                                                                                             直接获取`state`和使用`getter`获取:
+                                                                                                                                                             1. 使用`this.$store.***.***`
+                                                                                                                                                               	let product = this.$store.state.product
+                                                                                                                                                               	let token = this.$store.getters.getUserToken
+                                                                                                                                                             2. 使用`mapState`和`mapGetters` ,可以绑定到页面元素
+                                                                                                                                                             	import {mapState,mapGetters} from 'vuex'
+                                                                                                                                                              	computed:{
+                                                                                                                                                             		...mapState(['logined','user'])
+                                                                                                                                                             		...mapGetters({sn:getUserSn,token:getUserToken})
+                                                                                                                                                             	}
+                                                                                                                                                             	onLoad(options){
+                                                                                                                                                             		console.log(this.logined,this.user,this.sn,this.token)
+                                                                                                                                                             	}
+                                                                                                                                                              
+                                                                                                                                                             修改`state`值状态:`mutation`(仅支持同步操作)和`action`(支持异步操作)
+                                                                                                                                                             1. 使用`this.$store.commit('***',data)` // data选填
+                                                                                                                                                              	this.$store.commit('login',{user:'w',age:26,gender:'male'}})
+                                                                                                                                                             	this.$store.dispatch('relogin',{header:{token:'...'}})
+                                                                                                                                                             2. 使用`mapMutations`和`mapActions`
+                                                                                                                                                             	import {mapMutation,mapActions} from 'vuex'
+                                                                                                                                                             	methods:{
+                                                                                                                                                             		...mapMutations(['login','product'])
+                                                                                                                                                             		...mapActions(['relogin','forceLogout'])
+                                                                                                                                                             	}
+                                                                                                                                                             	onLoad(options){
+                                                                                                                                                             		this.product({title:'abc',id:'56565',...})
+                                                                                                                                                             		this.forceLogout({header:{token:'...'})
+                                                                                                                                                             	}
                                                                                                                                                               */_vue.default.use(_vuex.default);var store = new _vuex.default.Store({ state: { logined: false, // 登录状态
     user: {}, // 用户user
     product: {} // produc:同一时间仅保存一个商品信息
@@ -9864,15 +9864,15 @@ var Runtime = {};var _default =
 var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));
 var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 19));
 var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /** 
-                                                                                                                                                     	声明的options支持的参数请阅官方文档 https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html
-                                                                                                                                                      *  let url = this.$api.home;
-                                                                                                                                                      *  let data = {type:'home',...}
+                                                                                                                                                     声明的options支持的参数请阅官方文档 https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html
+                                                                                                                                                     	let url = this.$api.home;
+                                                                                                                                                     	let data = {type:'home',...}
                                                                                                                                                      	let options = {header:{sn:'aslkdfj',Authorization:'Bear 123456789',...},requestId:'home-fetch',...}
                                                                                                                                                      	this.$fetch.get(url,data,options).then(res=>{this.$log('HOME LOAD',res.data)},err=>{this.$log('HOME LOAD FAIL',res.data)})
-                                                                                                                                                     	也可以这样使用：
+                                                                                                                                                     也可以这样使用：
                                                                                                                                                      	let options = {url:this.$api.home,data:{type:'home'},header:{sn:''},requestId:'home_fetch'}
                                                                                                                                                      	this.$fetch.request(),then(res=>{},err=>{})
-                                                                                                                                                     	中断请求：
+                                                                                                                                                     中断请求：
                                                                                                                                                      	this.$fetch.cancel('requestId') // 要在异步发起请求之后才能取消
                                                                                                                                                       */var config = { url: _config.default.host, header: { 'Content-Type': 'application/x-www-form-urlencoded', 'token': '', 'version': _config.default.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
   } };var requests = new Map();
