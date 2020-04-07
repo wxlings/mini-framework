@@ -352,8 +352,8 @@
 	事件冒泡:是由IE开发团队提出来的，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播。
 	事件捕获:是由Netscape Communicator团队提出来的，是先由最上一级的节点先接收事件，然后向下传播到具体的节点。
 ```
-	
-![image]('https://raw.githubusercontent.com/wx-ling/mini-frame/master/capture/a.jpg')
+
+![image](https://raw.githubusercontent.com/wx-ling/mini-frame/master/capture/a.jpg 'image')
 	
 ```html
 	事件处理:`v-on` 使用`@`进行替代 如果没有参数传递可以省去括号
