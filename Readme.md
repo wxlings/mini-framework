@@ -352,9 +352,7 @@
 	事件冒泡:是由IE开发团队提出来的，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播。
 	事件捕获:是由Netscape Communicator团队提出来的，是先由最上一级的节点先接收事件，然后向下传播到具体的节点。
 ```
-
-![image](https://raw.githubusercontent.com/wx-ling/mini-frame/master/capture/a.jpg 'image')
-	
+![image](https://raw.githubusercontent.com/wx-ling/mini-framework/master/capture/a.jpg 'image')
 ```html
 	事件处理:`v-on` 使用`@`进行替代 如果没有参数传递可以省去括号
 	<div @click="onItemClick('param')"></div>
@@ -367,7 +365,46 @@
 	`once` 只会触发一次``
 	<div @click.stop.once="onclick"></div>
 
-	双向数据绑定:`v-bind`
+	双向数据绑定:`v-model`
+	`v-model` 适合 `input`,`cheked`及`select`标签,会忽略`value`,`selected`,`checked`的初始化属性
+	
+	组件:components
+	导入组件: 
+	>>> import { comp } from './../../components/**.vue'
+	>>> export default{
+	>>> 	component:{comp}
+	>>> }
+	
+	Props:组件传值
+	子组件中声明传值的类型及默认值,type支持:`String`,`Number`,`Boolean`,`Array`,`Object`,`Date`,`Function`,`Symbol`,指定`type`后会使用`instanceof`进行检查
+	props:{
+		name:'',
+		product:{
+			type:Object, // 如果指定了属性的类型,将严格按照属性执行,错误的类型是不会接收的,例如指定了`Number`而实际串字符串是不行的
+			default:{
+				title:'',
+				id:565656
+			}
+		}
+	}
+	父组件中bind值:
+	<comp name="comp`s name" :product="product"></comp>
+	
+	自定义事件:
+	子组件使用 `this.$emit('event_name',data)` data可选
+	父类组件使用`@event_name = "local"` 进行接收处理
+	
+	插槽:`v-slot`
+	子组件中声明`slot`及`name`标识,如果没有声明`name`则`name=default`
+	<div class='box'>
+		<slot name="header">
+			<div class='default'>default use</div>
+		</slot>
+	</div>
+	父类组件:新版本中`v-slot`只能添加在`template`标签上
+	<comp>
+		<template v-slot='header'>target content</template>
+	</comp>
 	
 	
 ```
