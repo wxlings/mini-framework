@@ -353,8 +353,8 @@
 	事件捕获:是由Netscape Communicator团队提出来的，是先由最上一级的节点先接收事件，然后向下传播到具体的节点。
 ```
 	
-	![image](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2kvNjA1NDIxLzIwMTQwMy8yNTE3NDQ0NjQwNDc1ODcuanBn,'image')
-
+![image]('http://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2kvNjA1NDIxLzIwMTQwMy8yNTE3NDQ0NjQwNDc1ODcuanBn')
+	
 ```html
 	事件处理:`v-on` 使用`@`进行替代 如果没有参数传递可以省去括号
 	<div @click="onItemClick('param')"></div>
