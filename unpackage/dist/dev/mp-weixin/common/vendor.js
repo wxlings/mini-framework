@@ -9872,7 +9872,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 20));funct
                                                                                                                                                      也可以这样使用：
                                                                                                                                                      	let options = {url:this.$api.home,data:{type:'home'},header:{sn:''},requestId:'home_fetch'}
                                                                                                                                                      	this.$fetch.request(),then(res=>{},err=>{})
-                                                                                                                                                     中断请求：
+                                                                                                                                                     支持中断网络请求：要在异步发起请求之后及网络返回之前有效,且要设置有效的`requestId`
                                                                                                                                                      	this.$fetch.cancel('requestId') // 要在异步发起请求之后才能取消
                                                                                                                                                       */var config = { url: _config.default.host, header: { 'Content-Type': 'application/x-www-form-urlencoded', 'token': '', 'version': _config.default.version // 通常在头部增加version标识,为了解决小程序升级审核时因数据返回异常而审核不过
   } };var requests = new Map();
@@ -10104,7 +10104,7 @@ module.exports = HOST[ENV];
                *  所有页面的api统一控制,在使用页面使用 this.$api.***进行引用
                */
 module.exports = {
-  check_user: 'user/checkuser',
+  check_user: '',
   home: '/index.php/jdUnionApi/index', // 首页api
   product: '', // 商品详情api
   user: '', // 用户api

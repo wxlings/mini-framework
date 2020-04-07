@@ -5,8 +5,7 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'; 
-	import { mapGetters } from 'vuex'; 
+	
 	export default {
 		data() {
 			return {
@@ -15,8 +14,6 @@
 			};
 		},
 		computed:{
-			...mapState(['logined','user']), // 应用内数据状态共享
-			...mapGetters({userToken:'getUserToken'}),
 		},
 		onLoad(options) {
 			

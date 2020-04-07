@@ -3,7 +3,7 @@
  *  所有页面的api统一控制,在使用页面使用 this.$api.***进行引用
  */
 module.exports = {
-	check_user:'user/checkuser',
+	check_user:'',
 	home:'/index.php/jdUnionApi/index', // 首页api
 	product:'', // 商品详情api
 	user:'', // 用户api

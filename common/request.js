@@ -8,7 +8,7 @@
 也可以这样使用：
 	let options = {url:this.$api.home,data:{type:'home'},header:{sn:''},requestId:'home_fetch'}
 	this.$fetch.request(),then(res=>{},err=>{})
-中断请求：
+支持中断网络请求：要在异步发起请求之后及网络返回之前有效,且要设置有效的`requestId`
 	this.$fetch.cancel('requestId') // 要在异步发起请求之后才能取消
  */
 
