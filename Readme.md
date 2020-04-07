@@ -353,7 +353,7 @@
 	事件捕获:是由Netscape Communicator团队提出来的，是先由最上一级的节点先接收事件，然后向下传播到具体的节点。
 ```
 	
-![image]('https://user-images.githubusercontent.com/56571772/78656785-7ba83600-78fa-11ea-8b41-6596e0fd8ffb.jpg')
+![image]('https://raw.githubusercontent.com/wx-ling/mini-frame/master/capture/a.jpg')
 	
 ```html
 	事件处理:`v-on` 使用`@`进行替代 如果没有参数传递可以省去括号
