@@ -46,6 +46,7 @@ const showLoading = (title ='加载中...',mask=true) =>{
 	})
 }
 
+Vue.prototype.$config = config;
 Vue.prototype.$api = api;
 Vue.prototype.$store = store; // vuex store
 Vue.prototype.$const = constant; // 全局常量池 : this.$const.Storage.HISTORY

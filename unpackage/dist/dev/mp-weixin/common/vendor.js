@@ -247,7 +247,7 @@ var CONTEXT_API_RE = /^create|Manager$/;
 
 var ASYNC_API = ['createBLEConnection'];
 
-var CALLBACK_API_RE = /^on/;
+var CALLBACK_API_RE = /^on|^off/;
 
 function isContextApi(name) {
   return CONTEXT_API_RE.test(name);
@@ -8517,7 +8517,7 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26820200330001","_inBundle":false,"_integrity":"sha512-Qzo5LcBl+abS7DvpyTXBYW2VVYHVcHBewduQecjn/gbzAn9e90aOVn02/2VZ82wV6TBiDXbGyloXojOY3InzWA==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26820200330001.tgz","_shasum":"880c5c5a4920bb35e9cf691eeb7427a7bf67ffd7","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"57ef7f7b5b6164a74ec425ff12f9fe0a1147841a","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26820200330001"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26920200402001","_inBundle":false,"_integrity":"sha512-Mdhd/IRuUMHWPj3TtWrBb0kghRBA0YiO2L2THMFvhCTfQDSoSq1vwOdAx5n/8fIORAvG0uVQoYl73xeVFZML5A==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26920200402001.tgz","_shasum":"5f66f5dc252ac00c6064857dee8251ee51aa2391","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"bfdbb7b3000599679ef8cb29a969e6bd447b00c7","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26920200402001"};
 
 /***/ }),
 /* 7 */
@@ -9633,57 +9633,91 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 12));
-var _const = _interopRequireDefault(__webpack_require__(/*! ../common/const.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-_vue.default.use(_vuex.default);
-
-var store = new _vuex.default.Store({
-  state: {
-    logined: false, // 登录状态
-    token: '',
-    user: {}, // user信息
+var _const = _interopRequireDefault(__webpack_require__(/*! ../common/const.js */ 17));
+var _api = _interopRequireDefault(__webpack_require__(/*! ../common/api.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**直接获取`state`值和使用`getter`获取:
+                                                                                                                                                              * 1. 使用`this.$store.***.***`
+                                                                                                                                                              * 		let product = this.$store.state.product
+                                                                                                                                                              * 		let token = this.$store.getters.getUserToken
+                                                                                                                                                              * 2. 使用`mapState`和`mapGetters` ,可以绑定到页面元素
+                                                                                                                                                              * 		import {mapState,mapGetters} from 'vuex'
+                                                                                                                                                              * 		computed:{
+                                                                                                                                                             			...mapState(['logined','user'])
+                                                                                                                                                             			...mapGetters({sn:getUserSn,token:getUserToken})
+                                                                                                                                                             		}
+                                                                                                                                                             		onLoad(options){
+                                                                                                                                                             			console.log(this.logined,this.user,this.sn,this.token)
+                                                                                                                                                             		}
+                                                                                                                                                              * 
+                                                                                                                                                              * 修改	`state`值状态: `mutation`(仅支持同步操作)和`action`(支持异步操作)
+                                                                                                                                                              * 1. 使用`this.$store.commit('***',data)` // data选填
+                                                                                                                                                              * 		this.$store.commit('login',{user:'w',age:26,gender:'male'}})
+                                                                                                                                                              * 		this.$store.dispatch('relogin',{header:{token:'...'}})
+                                                                                                                                                              * 
+                                                                                                                                                              * 2. 使用`mapMutations`和`mapActions`
+                                                                                                                                                              * 		import {mapMutation,mapActions} from 'vuex'
+                                                                                                                                                              * 		methods:{
+                                                                                                                                                             			...mapMutations(['login','product'])
+                                                                                                                                                             			...mapActions(['relogin','forceLogout'])
+                                                                                                                                                             		}
+                                                                                                                                                             		onLoad(options){
+                                                                                                                                                             			this.product({title:'abc',id:'56565',...})
+                                                                                                                                                             			this.forceLogout({header:{token:'...'})
+                                                                                                                                                             		}
+                                                                                                                                                              */_vue.default.use(_vuex.default);var store = new _vuex.default.Store({ state: { logined: false, // 登录状态
+    user: {}, // 用户user
     product: {} // produc:同一时间仅保存一个商品信息
-  },
-  mutations: {
-
-    /**
-                * @param {Object} data token value
-                */
-    setToken: function setToken(state, data) {
-      state.token = data;
-    },
-
-    /**
-        * @param {Object} data user info
-        */
-    login: function login(state, data) {
-      state.logined = true;
-      state.user = data;
-      wx.setStorage({
-        key: _const.default.Storage.USER,
-        data: data,
-        success: function success(e) {},
-        fail: function fail(e) {
-          console.error("Vuex -> login() -> setStorage() excetion:", e);
-        } });
-
-    },
-
-    /**
-        * @param {Object} data logout 
-        */
+  }, getters: { // 两种函数声明方式
+    getUserSn: function getUserSn(state) {return state.user.sn;}, getUserToken: function getUserToken(state) {return state.user.token;} }, mutations: { /**
+                                                                                                                                                         * @param {Object} data user info
+                                                                                                                                                         */login: function login(state, data) {state.logined = true;state.user = data;wx.setStorage({ key: _const.default.Storage.USER, data: data, success: function success(e) {}, fail: function fail(e) {console.error("Vuex -> login() -> setStorage() excetion:", e);} });}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                    * @param {Object} data logout 
+                                                                                                                                                                                                                                                                                                                                                                                                                                    */
     logout: function logout(state) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       state.logined = false;
+      state.sn = '';
+      state.token = '';
       state.user = data;
       wx.clearStorage();
+      console.log("Vuex->logout");
     },
 
     /**
         * @param {Object} data 插入一条产品信息，临时媒介
         */
-    produc: function produc(state, data) {
+    product: function product(state, data) {
       state.product = data;
     },
     /**
@@ -9696,10 +9730,10 @@ var store = new _vuex.default.Store({
         key: key,
         success: function success(res) {
           if (res.data) {
-            if (res.data.length >= 18) {// 保留最新的20条数据
+            if (res.data.length > 18) {// 保留最新的20条数据
               res.data.pop();
             }
-            res.data.shift(data);
+            res.data.unshift(data);
             temp = res.data;
           } else {
             temp.push(data);
@@ -9731,7 +9765,36 @@ var store = new _vuex.default.Store({
 
     } },
 
-  actions: {} });var _default =
+  actions: {
+    // 强制退出
+    forceLogout: function forceLogout(context) {var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var params = {
+        url: _api.default.logout,
+        method: 'POST',
+        success: function success(res) {// 如果调用处重写了success,这里的逻辑需要修改,建议直接使用complete
+          context.commit('logout');
+        } };
+
+      Object.assign(params, options);
+      wx.request(params);
+    },
+    // 重新获取微信code登录
+    relogin: function relogin(_ref) {var commit = _ref.commit;var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      wx.login({ success: function success(res) {
+          if (res.code) {
+            var params = {
+              url: _api.default.login,
+              method: 'POST',
+              success: function success(res) {// 如果调用处重写了success,这里的逻辑需要修改,建议直接使用complete
+                commit('login', res.data.user);
+              } };
+
+            Object.assign(params, options);
+            wx.request(params);
+          }
+        } });
+    } } });var _default =
+
 
 
 store;exports.default = _default;
@@ -9989,40 +10052,39 @@ module.exports.cancel = cancel;
 
 "use strict";
 
-var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _const = _interopRequireDefault(__webpack_require__(/*! ./const.js */ 17));var _HOST;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 var DEV = _const.default.Env.DEV;
 var PRE = _const.default.Env.PRE;
 var PRO = _const.default.Env.PRO;
+
 /**
-                                   * 关键点:发布版本时重新赋值Env即可
+                                   * 关键点:发布版本时重新赋值Env即可及
                                    */
 var ENV = DEV;
-// 版本控制
-var versions = ['1', '1', '1']; // 当前小程序版本
+var VERTIONS = ['1', '1', '1']; // 当前小程序版本,依据实际开发版本修改
 
-
-
-// 域名设置
+// HOST DOMAIN
 var HOST_DEV = 'https://jdtest.renrenyoupin.com'; //开发模式
 var HOST_PRE = 'https://jdtest.renrenyoupin.com'; // 体验模式
 var HOST_PRO = 'https://jd.renrenyoupin.com'; // 正式环境
 
-var HOST = {
-  development: {
-    host: HOST_DEV,
-    env: ENV,
-    version: versions[0] },
+// HOST VARIABLES
+var HOST = (_HOST = {}, _defineProperty(_HOST,
+DEV, {
+  host: HOST_DEV,
+  env: ENV,
+  version: VERTIONS[0] }), _defineProperty(_HOST,
 
-  preview: {
-    host: HOST_PRE,
-    env: ENV,
-    version: versions[1] },
+PRE, {
+  host: HOST_PRE,
+  env: ENV,
+  version: VERTIONS[1] }), _defineProperty(_HOST,
 
-  production: {
-    host: HOST_PRO,
-    env: ENV,
-    version: versions[2] } };
+PRO, {
+  host: HOST_PRO,
+  env: ENV,
+  version: VERTIONS[2] }), _HOST);
 
 
 
@@ -10047,8 +10109,9 @@ module.exports = {
   product: '', // 商品详情api
   user: '', // 用户api
   product_list: '', // 商品列表api
-  category: '' // 分类api
-};
+  category: '', // 分类api
+  login: '',
+  logout: '' };
 
 /***/ })
 ]]);

@@ -56,6 +56,7 @@ var showLoading = function showLoading() {var title = arguments.length > 0 && ar
 
 };
 
+_vue.default.prototype.$config = _config.default;
 _vue.default.prototype.$api = _api.default;
 _vue.default.prototype.$store = _index.default; // vuex store
 _vue.default.prototype.$const = _const.default; // 全局常量池 : this.$const.Storage.HISTORY
@@ -154,6 +155,15 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
       if (user_info && user_info.sn) {
         this.login(user_info);
         //this.check()
+      } else {
+        var user = {
+          name: 'wxl',
+          age: 24,
+          gender: 'male',
+          sn: 'iaskduqe',
+          token: '5ad2sf7af4a5sdf74s' };
+
+        this.login(user);
       }
     } catch (e) {
       this.$log("App onLoad=>Storage=>error", e);

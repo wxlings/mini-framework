@@ -287,3 +287,143 @@
 	
 	遍历： 对象用`in`,数组用`of`
 ```
+
+
+
+####［vuex](https://vuex.vuejs.org/zh/guide/) 应用的核心就是 store（仓库）“store”基本上就是一个容器，它包含着你的应用中大部分的状态 (state)。
+ > Vuex 和单纯的全局对象有以下两点不同：
+ > Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+ > 你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我  > 们更好地了解我们的应用。
+ ```js
+	基本使用:
+	Vue.use(Vuex);
+	const store = new Vuex.store({
+		// 声明状态数据对象
+		state:{
+			logined:false,
+			user:{},
+			product:{}
+		},
+		// 提供方法快速获取state状态值
+		getters:{
+			getUserSn(state){
+				return state.user.sn
+			},
+			getUserToken:state=>{
+				return state.user.token
+			}
+		},
+		// 提供统一非方法修改状态数据,Mutation必须是同步函数
+		mutations: {
+			login(state,data){
+				state.logined = true
+				state.user = data
+			},
+			logout(state,data={}){
+				state.logined = false
+				state.user = data
+			}
+			product:(state,data)=>{
+				state.product = data
+			}
+		},
+		// 使用的异步进行调用	`mutation`commit
+		actions:{
+			tLogin(context,data){
+				setTimeout(()=>{
+					context.commit('logout',data)
+				},3000)
+			},
+			tLogout:({commit})=>{
+				setTimeout(()=>{
+					commit('logout')
+				},3000)
+			}
+		}
+	})
+	
+	Js 文件: 要在根实例中注册`store`到应用进程里面，否则不能直接使用 `this.$store` 
+
+	`State` 应用级状态管理对象
+	操作方式一：使用`this.$store.state.***`获取指定状态变量值
+	>>> let logined = this.$store.state.logined
+	>>> console.log(logined)
+	>>> let user = this.$store.state.user
+	>>> console.log(user)
+	
+	操作方式二：引入Vuex module对象，使用辅助函数`mapState`,在computed中监听计算，可以绑定到组件
+	>>> import { mapState } from 'vuex';
+	>>> computed:{
+	>>>		...mapState{['logined','user','product']} //  每当store.state的数据发生变化都会触发computed重新计算
+	>>> }
+	>>> console.log(this.logined,this.user,this.product)、
+	
+	`Getter` 获取`state`的状态变量的简单方式,可以假设看做是	`state` 的属性
+	操作方式一：使用 `this.$store.getters.***`
+	>>>let sn = this.$store.getters.getUserSn
+	>>> console.log(sn)
+	
+	操作方式二：在`computed`中监听状态
+	>>> computed:{
+	>>> 	userSn(){
+	>>> 		return this.$store.getters.getUserSn
+	>>>	 	}
+	>>> }
+	
+	操作方式三：引入Vuex module对象，使用辅助函数`mapGetters`
+	>>> computed:{
+	>>> 	...mapGetters({userToken:'getUserToken'}) // 需要把方法映射一下
+	>>> }
+	>>> onShow(options){
+	>>> 	let token = this.userToken
+	>>> 	console.log(token)
+	>>> }
+	
+	`Mutation`:主要作用就是对外提供修改`state`状态变量的方法，Mutation必须是同步函数
+	操作方式一：使用 `this.$store.commit('function',data)` 进行提交式修改,`data`为参数选填
+	>>> this.$store.commit('login',{name:'w',age:24,gender:'male'})
+	>>> let user = this.$store.state.user
+	>>> console.log(user)
+	
+	操作方式二：引入Vuex module对象,使用辅助函数`mapMutations`,在`methods`引入
+	>>> import { mapMutations  } from 'vuex'
+	>>> methods:{
+	>>> 	...mapMutations (['login','logout'])
+	>>> }
+	>>> onShow(options){
+	>>> 	this.login({name:'w',age:23,gender:'female'})
+	>>> 	console.log(this.$store.state.logined)
+	>>> }
+	
+	注意：`mapMutations`是在`methods`中注入，而`mapState`是在`computed`中注入
+	 
+	`Action` 类似Mutation 区别：
+		1.> Action是提交的mutation而不是直接修改state;
+		2.> 但是它是支持异步函数的; 
+		3.> 函数接受一个与`store`实例具有相同方法和属性的 context 对象，因此你可以调用 context.commit 提交一个 mutation，或者通过 context.state 和 context.getters 来获取 state 和 getters。可以假设看做是`mutation`的异步形式
+	
+	>>> 操作方式一：使用	`this.$store.dispatch('function',data)` data可选
+	>>> this.$store.dipatch('login',{name:'w',age:44})
+	>>> console.log(this.$store.state.user)
+	
+	>>> 操作方式二： 引入Vuex module 对象,使用辅助函数	`mapActions`,在`methods`中映射
+	>>> import { mapActions } from `vues`
+	>>> methods:{
+	>>> 	...mapActions(['tLogin','tLogout'])
+	>>>	}
+	>>> onShow(){
+	>>> 	this.tLogin({name:'x',age:44,gender:'female',token:'asdujfioadj',sn:'dfererr'})
+	>>> 	setTimeout(()=>{
+	>>>			console.log(this.$store.state.logined)
+	>>>			this.tLogout()
+	>>>			setTimeout(()=>{
+	>>>				console.log(this.$store.state.logined)
+	>>>			},400)
+	>>> 	},4000)	
+	>>> }
+	
+	Module 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。Vuex 允许将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块
+		
+ ```
+ 
+ > 单一状态树：用一个对象就包含了全部的应用层级状态，每个应用将仅仅包含一个 store 实例

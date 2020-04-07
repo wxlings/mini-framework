@@ -9,4 +9,6 @@ module.exports = {
 	user:'', // 用户api
 	product_list:'', // 商品列表api
 	category:'', // 分类api
+	login:'',
+	logout:''
 }

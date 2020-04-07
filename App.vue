@@ -8,6 +8,15 @@
 				if(user_info &&　user_info.sn){
 					this.login(user_info)
 					//this.check()
+				}else{
+					let user = {
+						name:'wxl',
+						age:24,
+						gender:'male',
+						sn:'iaskduqe',
+						token:'5ad2sf7af4a5sdf74s'
+					}
+					this.login(user)
 				}
 			}catch(e){
 				this.$log("App onLoad=>Storage=>error",e)
