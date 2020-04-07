@@ -289,6 +289,89 @@
 ```
 
 
+#### [Vue](https://cn.vuejs.org/v2/guide/index.html) 渐进式框架
+```html
+	基础:声明周期:beforeCreate() => created() => beforeMount() => mounted() => updated() => beforeDestroy() => destoryed()
+	文本插值: `{{variable}}` 
+	计算属性: computed:{ function()=>{}} 类似methods:{},	区别在于计算属性是基于它们的响应式依赖进行缓存的,就是如果绑定了数据不变,那么是不会重新计算结果的 
+	侦听属性: watch:{ property:function(old,new){console.log(old,new)}} 只要`property`(通常在`data`中声明)发生变化就会触发该方法,
+	
+	`class`与`style`绑定:都支持`对象语法`和`数组语法` 
+	<!-- 对象语法 支持变量引用,支持内部三元运算-->
+	<div :class="{'show-box':show,'show-error':error}"> 
+		<div :style="{'background-color':show?'res':'yellow'}"></div>
+		<div :style="{color:activeColor,fontSize:fontSize +'rpx'}"></div>
+		<div :style="sObject"></div>
+	</div>
+	 <!-- 数组语法 -->
+	<div :class="[content,base,error?has_error:'']">
+		<div :class="[con,desc,{'error':hasError}]" ></div> 
+		<div :style="[aObject,sObject]"></div>
+	</div>
+	
+	data:{
+		activeColor:'red',
+		fontSize:16,
+		sObject:{
+			color:'green',
+			display:'flex'
+		},
+		aObject:{
+			color:'red'
+		}
+	}
+	条件渲染:
+	`v-if="condition"`,`v-else-if = "condition"`,`v-else` `:key = 'unique-variable'`(强烈建议添加)
+	`v-show`在显示与隐藏藏频率较高时使用
+	`v-once` 仅仅响应渲染一次 
+	列表渲染:
+	`v-for="(item,index) in array",:key="index"` 列表数据在数组
+	注意: `v-if`与`v-for`不可一起使用,性能问题
+	数组更新检测:犹豫`v-for`bind array
+	变异方法: `push()`,`pop()`,`shift()`,`unshift()`,`splice()`,`sort()`,`rerverse()`这些方法是可以触发视图变化的 
+	而那些返回新数组的例如:`concat()`,`slice()`,`filter()`是完全可以触发视图变化的,而且还不会丢弃已经渲染的dom
+	对象变更检测: Vue 不能检测对象属性的添加或删除
+	data:{
+		name:'w'
+	}
+	data.desc = 'desc' // 新增的属性是不会被`vue`检测到的,需要使用 set()
+	Vue.set(data,'desc','simple')  || this.$set(data,'desc','desc') // 这样是可以的\
+	同时Object.assin()也不会被Vue检测到!!
+	this.data = Object.assin({},this.data,new) // 这样会生成一个不同于origin的新对象
+	数据过滤:`filter`
+	data:{num:[1,2,3,4,5,6]},
+	computed:{
+		filterNum:()=>{
+			return this.num.filter((number)=>{
+				return number %2 === 0
+			})
+		}
+	}
+	
+	js事件传递类型:
+	事件冒泡:是由IE开发团队提出来的，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播。
+	事件捕获:是由Netscape Communicator团队提出来的，是先由最上一级的节点先接收事件，然后向下传播到具体的节点。
+```
+	
+	![image](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2kvNjA1NDIxLzIwMTQwMy8yNTE3NDQ0NjQwNDc1ODcuanBn,'image')
+
+```html
+	事件处理:`v-on` 使用`@`进行替代 如果没有参数传递可以省去括号
+	<div @click="onItemClick('param')"></div>
+	事件修饰符: 修饰符可以串联
+	`prevent` 对应`event.preventDefault()` 如果此事件没有被显式处理,此事件还是继续传播，除非碰到事件侦听器调用stopPropagation() 或stopImmediatePropagation()，才停止传播。
+	
+	`stop` 阻止事件向下传递,对应`event.stopPropagation()`
+	<div @click.stop="onClick"></div>
+	
+	`once` 只会触发一次``
+	<div @click.stop.once="onclick"></div>
+
+	双向数据绑定:`v-bind`
+	
+	
+```
+
 
 #### [Vuex](https://vuex.vuejs.org/zh/guide)  应用的核心就是 store（仓库）“store”基本上就是一个容器，它包含着你的应用中大部分的状态 (state)。
  > Vuex 和单纯的全局对象有以下两点不同：
@@ -425,5 +508,5 @@
 	Module 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。Vuex 允许将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块
 		
  ```
- 
+
  > 单一状态树：用一个对象就包含了全部的应用层级状态，每个应用将仅仅包含一个 store 实例
